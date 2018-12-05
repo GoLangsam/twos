@@ -22,5 +22,5 @@ See [`twos.md`](twos.md) for more.
 
 ## FAQ - Frequently asked questions
 
-- [How do I make a `Pair`?](How to make a Pair.md)
-- [How do I nest pairs?](How to nest pairs.md)
+- [How do I make a `Pair`](How to make a Pair.md)?
+- [How do I nest pairs](How to nest pairs.md)?

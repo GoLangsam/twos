@@ -61,7 +61,7 @@ Thus: `Pair` is an interface. Anything which satisfies it is considered a `Pair`
 
 ```go 
 type Pair interface {
-	`Both() (aten, apep interface{})`
+	Both() (aten, apep interface{})
 }
 ```
 
@@ -165,11 +165,10 @@ Note: `Head` represents a `Pair` (the `Pair` within) and also behaves as an iter
 ---
 ## Discriminate
 
-### unary boolean - Attribute
-
+### unary boolean - Predicate
 
 ```go
-type PairAttribute = func (Pair) bool
+type PairIs = func (Pair) bool
 ```
 
 Predefined	- discriminates iff:
@@ -180,7 +179,10 @@ Predefined	- discriminates iff:
 - IsUnit	- `.Both()` sides are equal (implies: have same Type)
 
 ### binary boolean - Relation
-type PairRelation = func (a, b Pair) bool
+
+```go
+type PairsAre = func (a, b Pair) bool
+```
 
 Predefined:
 - SameSame - two Pairs of same type TODO
