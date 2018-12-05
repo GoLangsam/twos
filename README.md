@@ -6,3 +6,21 @@
 [![GoDoc](https://godoc.org/github.com/GoLangsam/twos?status.svg)](https://godoc.org/github.com/GoLangsam/twos)
 
 An unconventional data structure for unconventional usage by unconventional players.
+
+## About
+
+Package `twos` is all about pairs. (Ordered pairs.)
+
+And pairs of pairs. And pairs of pairs of pairs. And pairs of pairs of pairs of pairs...
+
+Plenty of pairs. Piles of pairs. And piles of piles of pairs. And piles of piles of piles of pairs...
+
+You know about that nice old lady, who -when asked what the universe rests upon- said:
+"Turtles! Turtles all the way down", do You not? Well, relax: there are no turtles in here.
+
+See [`twos.md`](twos.md) for more.
+
+## FAQ - Frequently asked questions
+
+- [How do I make a `Pair`?](How to make a Pair.md)
+- [How do I nest pairs?](How to nest pairs.md)
