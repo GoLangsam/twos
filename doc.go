@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-package twos is all about pairs. (Ordered pairs.)
+Package twos is all about pairs. (Ordered pairs.)
 
 And pairs of pairs. And pairs of pairs of pairs. And pairs of pairs of pairs of pairs...
 
