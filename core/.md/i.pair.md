@@ -1,4 +1,4 @@
-package core // import "github.com/GoLangsam/anda/twos/core"
+package core // import "github.com/GoLangsam/twos/core"
 
 type Pair interface {
 	Both() (aten, apep interface{}) // both sides - whatever each type is

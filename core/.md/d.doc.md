@@ -1,5 +1,6 @@
-package core // import "github.com/GoLangsam/anda/twos/core"
+package core // import "github.com/GoLangsam/twos/core"
 
+var TypeOf = reflect.TypeOf
 func IsKind() (pairIs func(Pair) bool)
 func IsNested() (pairIs func(Pair) bool)
 func StringOfOnes(a interface{}) string
@@ -20,10 +21,8 @@ type Pair interface{ ... }
     func Swap(a Pair) Pair
 type Tail func() (Head, Tail)
     func Iter(pairs ...Pair) (tail Tail)
-    func Mult(factors ...Iterable) (tail Tail)
     func NilTail() Tail
     func Only(iter Iterable, pairIs func(Pair) bool) Tail
-    func Prod(a, b Iterable) (tail Tail)
     func Skip(iter Iterable, pairIs func(Pair) bool) Tail
+    func X(factors ...Iterable) (tail Tail)
 type Type = reflect.Type
-    func TypeOf(a interface{}) Type

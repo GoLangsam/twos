@@ -1,4 +1,4 @@
-package core // import "github.com/GoLangsam/anda/twos/internal"
+package core // import "github.com/GoLangsam/twos/internal"
 
 Package core provides generic implementations such as
 
@@ -13,7 +13,7 @@ as well as
 This package is not imported anwhere. See genny.go elsewhere for it's usage.
 
 Note: anyType_test.go provides some test data - any client package must
-provide similar data, appropiate for the target type, if pile_test.go is
+provide similar data, appropriate for the target type, if pile_test.go is
 generated into such package.
 
 var isanyTypeFalse = func(a anyType) bool { ... }

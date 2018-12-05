@@ -1,4 +1,4 @@
-package core // import "github.com/GoLangsam/anda/twos/core"
+package core // import "github.com/GoLangsam/twos/core"
 
 const itemFmt = "%+v"
 const nilName = name("<noName>")
@@ -6,11 +6,8 @@ const nodeFmt = "{%+v<%+v>%+v}"
 const tailBeg = "["
 const tailEnd = "]"
 const twosFmt = "{ %+v | %+v }"
-var theKindOfCardinality = kind{ ... }
-var theKindOfIndex = kind{ ... }
-var theKindOfKind = kind{ ... }
-var theKindOfName = kind{ ... }
-var theKindOfNest = kind{ ... }
+var nilHead Head = func() Pair { ... } ...
+var TypeOf = reflect.TypeOf
 func IsKind() (pairIs func(Pair) bool)
 func IsNested() (pairIs func(Pair) bool)
 func StringOfOnes(a interface{}) string
@@ -20,7 +17,6 @@ func prod(aHead Head, aTail, bTail, reset Tail) (head Head, tail Tail)
 type Cardinality = cardinalNumber
     func LengthOfPair(a Pair) (length Cardinality)
 type Head func() Pair
-    var nilHead Head = func() Pair { ... }
 type ID = name
 type Index = ordinalNumber
     func At(i int) Index
@@ -31,16 +27,14 @@ type Pair interface{ ... }
     func Join(a, b Pair) Pair
     func Swap(a Pair) Pair
 type Tail func() (Head, Tail)
-    var nilTail Tail = func() (Head, Tail) { ... }
     func Iter(pairs ...Pair) (tail Tail)
-    func Mult(factors ...Iterable) (tail Tail)
     func NilTail() Tail
     func Only(iter Iterable, pairIs func(Pair) bool) Tail
-    func Prod(a, b Iterable) (tail Tail)
     func Skip(iter Iterable, pairIs func(Pair) bool) Tail
+    func X(factors ...Iterable) (tail Tail)
+    func mult(a, b Iterable) (tail Tail)
     func tailRecurse(pairs ...Pair) (tail Tail)
 type Type = reflect.Type
-    func TypeOf(a interface{}) Type
 type cardinalNumber uint64
 type kind struct{ ... }
     func KindOfPair(a Pair) kind

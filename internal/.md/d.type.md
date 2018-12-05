@@ -1,4 +1,4 @@
-provide similar data, appropiate for the target type, if pile_test.go is
+provide similar data, appropriate for the target type, if pile_test.go is
 type Cardinality = core.Cardinality
 type Container interface{ ... }
 type Head = core.Head

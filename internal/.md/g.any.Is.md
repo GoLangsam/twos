@@ -1,4 +1,4 @@
-package core // import "github.com/GoLangsam/anda/twos/internal"
+package core // import "github.com/GoLangsam/twos/internal"
 
 type anyTypeIs func(anyType) bool
     anyTypeIs represents a boolean predicate of anyType implemented as a boolean

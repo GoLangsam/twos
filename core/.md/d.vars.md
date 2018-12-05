@@ -1,0 +1,1 @@
+var TypeOf = reflect.TypeOf
