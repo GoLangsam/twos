@@ -9,14 +9,14 @@ An unconventional data structure for unconventional usage by unconventional play
 
 ## About
 
-Package `twos` is all about pairs. (Ordered pairs.)
+Package `twos` is all about pairs. ([Ordered pairs](https://en.wikipedia.org/wiki/Ordered_pair).)
 
 And pairs of pairs. And pairs of pairs of pairs. And pairs of pairs of pairs of pairs...
 
 Plenty of pairs. Piles of pairs. And piles of piles of pairs. And piles of piles of piles of pairs...
 
 You know about that nice old lady, who -when asked what the universe rests upon- said:
-"Turtles! Turtles all the way down", do You not? Well, relax: there are no turtles in here.
+"[Turtles! Turtles all the way down](https://en.wikiquote.org/wiki/Turtles_all_the_way_down)", do You not? Well, relax: there are no turtles in here.
 
 See [`twos.md`](twos.md) for more.
 
