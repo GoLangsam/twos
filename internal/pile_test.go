@@ -100,7 +100,7 @@ func ExamplePileOfanyType_Range() {
 	fmt.Println(pile.Length())
 
 	i := 0
-	for _ = range pile.Range() {
+	for range pile.Range() {
 		i++
 	}
 
@@ -116,7 +116,7 @@ func ExamplePileOfanyType_Random() {
 	fmt.Println(pile.Length())
 
 	i := 0
-	for _ = range pile.Random() {
+	for range pile.Random() {
 		i++
 	}
 

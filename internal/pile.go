@@ -143,21 +143,25 @@ func (a PileOfanyType) Both() (aten, apep interface{}) { return a.ID, a.anyTypeS
 // a slice of the first item and a slice of the remaining items.
 func (a anyTypeS) Both() (aten, apep interface{}) { return a[:0], a[1:] }
 
-/* String implements fmt.Stringer */
+// String implements fmt.Stringer.
 func (a onesOfanyType) String() string { return StringOfTwos(a.ID, a.Apep) }
 
-/* String implements fmt.Stringer */ func (a twosOfanyType) String() string { return StringOfTwos(a.Aten, a.Apep) }
+// String implements fmt.Stringer.
+func (a twosOfanyType) String() string { return StringOfTwos(a.Aten, a.Apep) }
 
-/* String implements fmt.Stringer */ func (a PileOfanyType) String() string { return StringOfTwos(a.ID, a.anyTypeS) }
+// String implements fmt.Stringer.
+func (a PileOfanyType) String() string { return StringOfTwos(a.ID, a.anyTypeS) }
 
-/* String implements fmt.Stringer */ func (a anyTypeS) String() string { return StringOfTwos(a[:0], a[1:]) }
+// String implements fmt.Stringer.
+func (a anyTypeS) String() string { return StringOfTwos(a[:0], a[1:]) }
 
 // ===========================================================================
 
-/* Length implements Pile by returning 1 */
+// Length implements Pile by returning 1.
 func (a onesOfanyType) Length() Cardinality { return 1 }
 
-/* Length implements Pile by returning 1 */ func (a twosOfanyType) Length() Cardinality { return 1 }
+// Length implements Pile by returning 1.
+func (a twosOfanyType) Length() Cardinality { return 1 }
 
 // Length implements Pile by returning the length of the Pile.
 func (a PileOfanyType) Length() Cardinality { return a.lookUpanyType.Length() }
