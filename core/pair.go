@@ -21,9 +21,8 @@ func Aten(a Pair) Pair {
 	aten, _ := a.Both()
 	if pair, ok := aten.(Pair); ok {
 		return pair
-	} else {
-		return KindOfPair(a)
 	}
+	return KindOfPair(a)
 }
 
 // Apep returns the second constituent of Pair a.
@@ -38,9 +37,8 @@ func Apep(a Pair) Pair {
 	apep, _ := a.Both()
 	if pair, ok := apep.(Pair); ok {
 		return pair
-	} else {
-		return a
 	}
+	return a
 }
 
 // Swap reverses a Pair.

@@ -252,7 +252,7 @@ func (a Tail) Only(pairIs func(Pair) bool) Tail {
 // X returns the (right-associative) cartesian product
 // of a with the given iterables.
 // A nil a is ignored when composing the product.
-func (a Tail) With(iters ...Iterable) Tail {
+func (a Tail) X(iters ...Iterable) Tail {
 	if a != nil {
 		iters = append([]Iterable{a}, iters...)
 	}

@@ -14,6 +14,6 @@
 // See genny.go elsewhere for it's usage.
 //
 // Note: anyType_test.go provides some test data - any client package
-// must provide similar data, appropiate for the target type,
+// must provide similar data, appropriate for the target type,
 // if pile_test.go is generated into such package.
 package core

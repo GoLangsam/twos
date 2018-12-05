@@ -59,24 +59,24 @@ func KindOfPair(a Pair)	kind {
 	}
 }
 
-/* Name implements Named by returning the Name of the TypeOf(a).	*/ func (a nilPair)     Name() string { return TypeOf(a).Name() }
-/* Name implements Named by returning the Name of the TypeOf(a).	*/ func (a kind)        Name() string { return string(a.ID) }
-/* Name implements Named by returning the Name of the TypeOf(a).	*/ func (a name)        Name() string { return string(a) }
-/* Name implements Named by returning the Name of the TypeOf(a).	*/ func (a Index)       Name() string { return TypeOf(a).Name() }
-/* Name implements Named by returning the Name of the TypeOf(a).	*/ func (a Cardinality) Name() string { return TypeOf(a).Name() }
-/* Name implements Named by returning the Name of the TypeOf(a).	*/ func (a nest)        Name() string { return TypeOf(a).Name() }
-/* Name implements Named by returning the Name of the TypeOf(a).	*/ func (a Head)        Name() string { return TypeOf(a).Name() }
-/* Name implements Named by returning the Name of the TypeOf(a).	*/ func (a Tail)        Name() string { return TypeOf(a).Name() }
+/* Name implements Named by returning the Name of the TypeOf(a).	*/func (a nilPair)     Name() string { return TypeOf(a).Name() }
+/* Name implements Named by returning the Name of the TypeOf(a).	*/func (a kind)        Name() string { return string(a.ID) }
+/* Name implements Named by returning the Name of the TypeOf(a).	*/func (a name)        Name() string { return string(a) }
+/* Name implements Named by returning the Name of the TypeOf(a).	*/func (a Index)       Name() string { return TypeOf(a).Name() }
+/* Name implements Named by returning the Name of the TypeOf(a).	*/func (a Cardinality) Name() string { return TypeOf(a).Name() }
+/* Name implements Named by returning the Name of the TypeOf(a).	*/func (a nest)        Name() string { return TypeOf(a).Name() }
+/* Name implements Named by returning the Name of the TypeOf(a).	*/func (a Head)        Name() string { return TypeOf(a).Name() }
+/* Name implements Named by returning the Name of the TypeOf(a).	*/func (a Tail)        Name() string { return TypeOf(a).Name() }
 
 // ===========================================================================
 
-/* Both implements Pair by returning the Kind and the Type.		*/ func (a nilPair)     Both() (aten, apep interface{}) { return KindOfPair(a),     nil }
-/* Both implements Pair by returning the Name and the Type.		*/ func (a kind)        Both() (aten, apep interface{}) { return KindOfPair(a).ID, KindOfPair(a).Type }
-/* Both implements Pair by returning the Kind and the value.		*/ func (a name)        Both() (aten, apep interface{}) { return KindOfPair(a),       a }
-/* Both implements Pair by returning the Kind and the value.		*/ func (a Index)       Both() (aten, apep interface{}) { return KindOfPair(a),       a }
-/* Both implements Pair by returning the Kind and the value.		*/ func (a Cardinality) Both() (aten, apep interface{}) { return KindOfPair(a),       a }
-/* Both implements Pair by returning both parts of a.                   */ func (a nest)        Both() (aten, apep interface{}) { return a.Aten, a.Apep }
-/* Both implements Pair by returning Both() of the evaluated Head.	*/ func (a Head)        Both() (aten, apep interface{}) {
+/* Both implements Pair by returning the Kind and the Type.		*/func (a nilPair)     Both() (aten, apep interface{}) { return KindOfPair(a),     nil }
+/* Both implements Pair by returning the Name and the Type.		*/func (a kind)        Both() (aten, apep interface{}) { return KindOfPair(a).ID, KindOfPair(a).Type }
+/* Both implements Pair by returning the Kind and the value.		*/func (a name)        Both() (aten, apep interface{}) { return KindOfPair(a),       a }
+/* Both implements Pair by returning the Kind and the value.		*/func (a Index)       Both() (aten, apep interface{}) { return KindOfPair(a),       a }
+/* Both implements Pair by returning the Kind and the value.		*/func (a Cardinality) Both() (aten, apep interface{}) { return KindOfPair(a),       a }
+/* Both implements Pair by returning both parts of a.                   */func (a nest)        Both() (aten, apep interface{}) { return a.Aten, a.Apep }
+/* Both implements Pair by returning Both() of the evaluated Head.	*/func (a Head)        Both() (aten, apep interface{}) {
 	if a == nil {return KindOfPair(a), nilHead}
 	if a() == nil {return nilPair{}.Both()};	return a().Both() }
 /* Both implements Pair by returning the Head and Tail a evaluates to.	*/ func (a Tail)        Both() (aten, apep interface{}) {
@@ -132,6 +132,7 @@ func (a Tail) Tail() Tail                          { return a }
 
 // ===========================================================================
 
+// LengthOfPair reports the length (as a Cardinality).
 func LengthOfPair(a Pair ) (length Cardinality) {
 	// Pile holds Length items.
 	type Pile interface {
@@ -141,11 +142,11 @@ func LengthOfPair(a Pair ) (length Cardinality) {
 	return
 }
 
-/* Length implements Pile by returning 0 */ func (a nilPair)     Length() Cardinality { return 0 }
-/* Length implements Pile by returning 1 */ func (a kind)        Length() Cardinality { return 1 }
-/* Length implements Pile by returning 1 */ func (a name)        Length() Cardinality { return 1 }
-/* Length implements Pile by returning 1 */ func (a Index)       Length() Cardinality { return 1 }
-/* Length implements Pile by returning 1 */ func (a Cardinality) Length() Cardinality { return 1 }
+/* Length implements Pile by returning 0 */func (a nilPair)     Length() Cardinality { return 0 }
+/* Length implements Pile by returning 1 */func (a kind)        Length() Cardinality { return 1 }
+/* Length implements Pile by returning 1 */func (a name)        Length() Cardinality { return 1 }
+/* Length implements Pile by returning 1 */func (a Index)       Length() Cardinality { return 1 }
+/* Length implements Pile by returning 1 */func (a Cardinality) Length() Cardinality { return 1 }
 
 // Length implements Pile
 // by returning
@@ -190,17 +191,25 @@ func (a Tail) LengthRecursive() Cardinality {
 
 // ===========================================================================
 
+// Of returns a nilHead.
 func (a nilPair)     Of(index Index) Head { return nilHead }
+// Of returns a of the Pair iff index is one and nilHead otherwise.
 func (a kind)        Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+// Of returns a of the Pair iff index is one and nilHead otherwise.
 func (a name)        Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+// Of returns a of the Pair iff index is one and nilHead otherwise.
 func (a Index)       Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+// Of returns a of the Pair iff index is one and nilHead otherwise.
 func (a Cardinality) Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+// Of returns a of the Pair iff index is one and nilHead otherwise.
 func (a nest)        Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+// Of returns a of the Pair iff index is one and nilHead otherwise.
 func (a Head)        Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
 
+// Of returns a Head for the item of position index, of nilHead iff the index is out of bounds.
 func (a Tail)        Of(index Index) Head {
 	var current Index
-	for head, tail := a(); head != nil; head, tail = tail() {
+	for head, tail := a(); head != nil && current < index; head, tail = tail() {
 		current++
 		if index == current {return func() Pair {return head}}
 	}

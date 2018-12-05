@@ -120,8 +120,8 @@ type Pairs <-chan Pair
 
 // ===========================================================================
 
-func StringOfTwos(a, b interface{}) string { return core.StringOfTwos(a, b) }
-func StringOfOnes(a    interface{}) string { return core.StringOfOnes(a   ) }
+/* StringOfTwos returns the string of two items. */ func StringOfTwos(a, b interface{}) string { return core.StringOfTwos(a, b) }
+/* StringOfOnes returns the string of one item.  */ func StringOfOnes(a    interface{}) string { return core.StringOfOnes(a   ) }
 
 // StringOfPair returns the string of a Pair
 func StringOfPair(a Pair)           string { return core.StringOfPair(a) }

@@ -34,9 +34,10 @@ func ExampleIterable_interface() {
 
 }
 
+// Named represents a named type.
+type Named interface{ Name() string }
+
 func ExampleNamed_interface() {
-	// Named represents a named type.
-	type Named interface{ Name() string }
 
 	var _ Named = ID("Test")
 	var _ Named = Index(4711)
@@ -51,11 +52,12 @@ func ExampleNamed_interface() {
 
 }
 
+// Pile holds Length items.
+type Pile interface {
+	Length() Cardinality
+}
+
 func ExamplePile_interface() {
-	// Pile holds Length items.
-	type Pile interface {
-		Length() Cardinality
-	}
 
 	var _ Pile = ID("Test")
 	var _ Pile = Index(4711)
@@ -70,11 +72,12 @@ func ExamplePile_interface() {
 
 }
 
+// Indexed allows to retrieve a Head Of any item by Index.
+type Indexed interface {
+	Of(Index) Head
+}
+
 func ExampleIndexed_interface() {
-	// Indexed allows to retrieve a Head Of any item by Index.
-	type Indexed interface {
-		Of(Index) Head
-	}
 
 	var _ Indexed = ID("Test")
 	var _ Indexed = Index(4711)
@@ -88,11 +91,12 @@ func ExampleIndexed_interface() {
 	var _, _ Indexed = NilTail()()
 }
 
+// Container can tell for any item whether it contains this item or not.
+type Container interface {
+	Contains(item interface{}) bool
+}
+
 func ExampleContainer_interface() {
-	// Container can tell for any item whether it contains this item or not.
-	type Container interface {
-		Contains(item interface{}) bool
-	}
 
 	/*
 		var _ Container = ID("Test")

@@ -75,5 +75,5 @@ func StringOfPair(a Pair) string {
 const itemFmt = "%+v"
 const twosFmt = "{ %+v | %+v }"
 
-func StringOfTwos(a, b interface{}) string { return fmt.Sprintf(twosFmt, a, b) }
-func StringOfOnes(a    interface{}) string { return fmt.Sprintf(itemFmt, a   ) }
+/* StringOfTwos returns the string of two items. */ func StringOfTwos(a, b interface{}) string { return fmt.Sprintf(twosFmt, a, b) }
+/* StringOfOnes returns the string of one item.  */ func StringOfOnes(a    interface{}) string { return fmt.Sprintf(itemFmt, a   ) }
