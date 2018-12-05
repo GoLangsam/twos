@@ -85,7 +85,7 @@ func ExamplePileOfanyType_Idx() {
 
 		idx, ok := pile.Idx(item)
 		if !ok {
-			fmt.Println("Idx failed to find", item, "at index", i, )
+			fmt.Println("Idx failed to find", item, "at index", i)
 		} else if idx != i {
 			fmt.Println("Idx returned", idx, "instead of", i)
 		}

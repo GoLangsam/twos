@@ -27,13 +27,13 @@ type twosOfanyType struct {
 
 // ===========================================================================
 
-type lookUpanyType struct { look map[anyType]Index }
+type lookUpanyType struct{ look map[anyType]Index }
 
 // Idx returns the index of item iff applicable.
-func(a lookUpanyType) Idx(item anyType) (idx Index, found bool) {idx, found = a.look[item]; return }
-func(a *lookUpanyType) put(item anyType, idx Index) { a.look[item] = idx }
-func(a lookUpanyType) Len() int                 {return len(a.look)}
-func(a lookUpanyType) Length() Cardinality {return Cardinality(len(a.look))}
+func (a lookUpanyType) Idx(item anyType) (idx Index, found bool) { idx, found = a.look[item]; return }
+func (a *lookUpanyType) put(item anyType, idx Index)             { a.look[item] = idx }
+func (a lookUpanyType) Len() int                                 { return len(a.look) }
+func (a lookUpanyType) Length() Cardinality                      { return Cardinality(len(a.look)) }
 
 // Random returns a channel to range over.
 func (a lookUpanyType) Random() <-chan anyType {
@@ -53,17 +53,17 @@ func (a lookUpanyType) Random() <-chan anyType {
 // pairOfanyType is implemented by onesOfanyType, twosOfanyType and PileOfanyType.
 type pairOfanyType interface {
 	Pair
-	Tail() Tail			// Iterable
+	Tail() Tail // Iterable
 }
 
 // PilerOfanyType is implemented by *PileOfanyType
 type PilerOfanyType interface {
 	Pair
-	Tail() Tail			// Iterable
-	Name() string			// Named
-	Of(Index) Head			// Indexed
-	Contains(interface{}) bool	// Container
-	LookeranyType			// Pile: Length()
+	Tail() Tail                // Iterable
+	Name() string              // Named
+	Of(Index) Head             // Indexed
+	Contains(interface{}) bool // Container
+	LookeranyType              // Pile: Length()
 	append(items ...anyType) *PileOfanyType
 	add(item anyType) *PileOfanyType
 	At(Index) anyType
@@ -72,10 +72,10 @@ type PilerOfanyType interface {
 
 // LookeranyType is implemented by lookUpanyType
 type LookeranyType interface {
-	put(item anyType, idx Index) // may panic("Overflow")
-  	Idx(item anyType) (idx Index, found bool) // returns the index of item iff applicable
-	Len() int            // current Length
-	Length() Cardinality // current Length
+	put(item anyType, idx Index)              // may panic("Overflow")
+	Idx(item anyType) (idx Index, found bool) // returns the index of item iff applicable
+	Len() int                                 // current Length
+	Length() Cardinality                      // current Length
 	Random() <-chan anyType
 }
 
@@ -110,15 +110,12 @@ type PileOfanyType struct {
 // NewPileOfanyType returns a named Pile of items.
 // There must be at least one item.
 func NewPileOfanyType(name ID, items ...anyType) *PileOfanyType {
-	soManyType := len(items)
-	if soManyType < 1 {
-		panic("newPileOfanyType needs one item at least.")
-	}
+	soManyItems := len(items)
 
 	pile := &PileOfanyType{
 		name,
-		make([]anyType, 0, soManyType),
-		lookUpanyType{make(map[anyType]Index, soManyType)},
+		make([]anyType, 0, soManyItems),
+		lookUpanyType{make(map[anyType]Index, soManyItems)},
 		lookUpanyType{make(map[anyType]Index)},
 	}
 	pile = pile.append(items...)
@@ -131,33 +128,54 @@ func NewPileOfanyType(name ID, items ...anyType) *PileOfanyType {
 // by returning both parts of a,
 // it's ID and it's anyType value.
 func (a onesOfanyType) Both() (aten, apep interface{}) { return a.ID, a.Apep }
+
 // Both implements Pair
 // by returning both parts of a.
 func (a twosOfanyType) Both() (aten, apep interface{}) { return a.Aten, a.Apep }
+
 // Both implements Pair
 // by returning both parts of a,
 // it's ID and it's items (as slice of anyType).
 func (a PileOfanyType) Both() (aten, apep interface{}) { return a.ID, a.anyTypeS }
+
 // Both implements Pair
 // by returning both parts of a,
 // a slice of the first item and a slice of the remaining items.
-func (a anyTypeS) Both() (aten, apep interface{}) {return a[:0], a[1:]}
+func (a anyTypeS) Both() (aten, apep interface{}) { return a[:0], a[1:] }
 
-/* String implements fmt.Stringer */ func (a onesOfanyType) String() string { return StringOfTwos( a.ID,   a.Apep ) }
-/* String implements fmt.Stringer */ func (a twosOfanyType) String() string { return StringOfTwos( a.Aten, a.Apep ) }
-/* String implements fmt.Stringer */ func (a PileOfanyType) String() string { return StringOfTwos( a.ID,   a.anyTypeS ) }
-/* String implements fmt.Stringer */ func (a anyTypeS)      String() string { return StringOfTwos( a[:0], a[1:] ) }
+/* String implements fmt.Stringer */
+func (a onesOfanyType) String() string { return StringOfTwos(a.ID, a.Apep) }
+
+/* String implements fmt.Stringer */ func (a twosOfanyType) String() string { return StringOfTwos(a.Aten, a.Apep) }
+
+/* String implements fmt.Stringer */ func (a PileOfanyType) String() string { return StringOfTwos(a.ID, a.anyTypeS) }
+
+/* String implements fmt.Stringer */ func (a anyTypeS) String() string { return StringOfTwos(a[:0], a[1:]) }
 
 // ===========================================================================
 
-/* Length implements Pile by returning 1 */ func (a onesOfanyType) Length() Cardinality { return 1 }
+/* Length implements Pile by returning 1 */
+func (a onesOfanyType) Length() Cardinality { return 1 }
+
 /* Length implements Pile by returning 1 */ func (a twosOfanyType) Length() Cardinality { return 1 }
 
 // Length implements Pile by returning the length of the Pile.
 func (a PileOfanyType) Length() Cardinality { return a.lookUpanyType.Length() }
 
-func (a onesOfanyType) Of(index Index) Head { if index == 1 {return func() Pair {return a}}; nilHead, _ := NilTail()(); return nilHead }
-func (a twosOfanyType) Of(index Index) Head { if index == 1 {return func() Pair {return a}}; nilHead, _ := NilTail()(); return nilHead }
+func (a onesOfanyType) Of(index Index) Head {
+	if index == 1 {
+		return func() Pair { return a }
+	}
+	nilHead, _ := NilTail()()
+	return nilHead
+}
+func (a twosOfanyType) Of(index Index) Head {
+	if index == 1 {
+		return func() Pair { return a }
+	}
+	nilHead, _ := NilTail()()
+	return nilHead
+}
 
 // ===========================================================================
 
@@ -165,20 +183,24 @@ func (a twosOfanyType) Of(index Index) Head { if index == 1 {return func() Pair 
 // by returning
 // a head which evaluates to a ( head() == Pair(a) ) and
 // as tail the unique NilTail().
-func (a onesOfanyType) Tail() Tail                     { return func() (Head, Tail) { return func() Pair { return a }, NilTail() } }
+func (a onesOfanyType) Tail() Tail {
+	return func() (Head, Tail) { return func() Pair { return a }, NilTail() }
+}
 
 // Tail implements Iterable
 // by returning
 // a head which evaluates to a ( head() == Pair(a) ) and
 // as tail the unique NilTail().
-func (a twosOfanyType) Tail() Tail                     { return func() (Head, Tail) { return func() Pair { return a }, NilTail() } }
+func (a twosOfanyType) Tail() Tail {
+	return func() (Head, Tail) { return func() Pair { return a }, NilTail() }
+}
 
 // Tail implements Iterable
 // by sucessively returning
 // the items
-func (a PileOfanyType) Tail() Tail                     { var idx int; return a.tail(idx) }
+func (a PileOfanyType) Tail() Tail { var idx int; return a.tail(idx) }
 
-func (a PileOfanyType) head(idx int) Head              {
+func (a PileOfanyType) head(idx int) Head {
 	if idx < len(a.anyTypeS) {
 		return func() Pair {
 			return onesOfanyType{a.ID, a.anyTypeS[idx]}
@@ -195,7 +217,7 @@ func (a PileOfanyType) tail(idx int) Tail {
 	if idx < len(a.anyTypeS) {
 		return func() (head Head, tail Tail) {
 			head = a.head(idx)
-			tail = a.tail(idx+1)
+			tail = a.tail(idx + 1)
 			return head, tail
 		}
 	}
@@ -218,26 +240,28 @@ func (a PileOfanyType) Contains(item interface{}) (contains bool) {
 // PileOfanyType specific
 
 // At returns the item at Index idx - and panics iff idx < 1 or > Len().
-func (a PileOfanyType) At(idx Index) anyType               { return a.anyTypeS[idx.AsOffset()] }
+func (a PileOfanyType) At(idx Index) anyType { return a.anyTypeS[idx.AsOffset()] }
 
 // Of returns a Head to the item at Index idx - and panics iff idx < 1 or > Len().
 // Iff the does not implement Pair a nilHead is returned.
-func (a PileOfanyType) Of(idx Index) Head                  { return a.head(idx.AsOffset()) }
+func (a PileOfanyType) Of(idx Index) Head { return a.head(idx.AsOffset()) }
 
 // S returns a slice of item in order of arrival.
 //  Note: This is also returned by Both() as second parameter.
 //  Just: S allows convenient and type-safe access.
-func (a PileOfanyType) S() []anyType                       { return a.anyTypeS }
+func (a PileOfanyType) S() []anyType { return a.anyTypeS }
 
 // Duplicates returns a map of the duplicate items.
 // The Index tells how often the item was received as a duplicate.
 //   Hint: The len(of this map) tells how manyType different item values were seen more than once.
 //   Note: Clients should check and consider anyType non-zero result as an error.
-func (a PileOfanyType) Duplicates() map[anyType]Index      { return a.duplicates.look }
+func (a PileOfanyType) Duplicates() map[anyType]Index { return a.duplicates.look }
 
 // append
 func (a *PileOfanyType) append(items ...anyType) *PileOfanyType {
-	for _, item := range items { a = a.add(item) }
+	for _, item := range items {
+		a = a.add(item)
+	}
 	return a
 }
 
@@ -246,7 +270,7 @@ func (a *PileOfanyType) add(item anyType) *PileOfanyType {
 		a.put(item, idx)
 		idx, _ := a.duplicates.Idx(item)
 		idx++
-		a.duplicates.put(item, idx )
+		a.duplicates.put(item, idx)
 	} else {
 		a.anyTypeS = append(a.anyTypeS, item)
 		a.put(item, Index(len(a.anyTypeS)))

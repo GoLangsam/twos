@@ -11,4 +11,5 @@ import (
 type anyType generic.Type
 
 type someType struct{ a interface{} }
-func (a someType) Both() (aten, apep interface{}) {return a, a}
+
+func (a someType) Both() (aten, apep interface{}) { return a, a }

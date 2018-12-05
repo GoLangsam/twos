@@ -17,6 +17,6 @@ func testanyType() (ID, []anyType) {
 		time.Monday,
 		"Thursday",
 		ID("Friday"),
-		}
+	}
 	return name, data
 }
