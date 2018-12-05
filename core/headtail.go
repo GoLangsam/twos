@@ -29,17 +29,13 @@ func NilTail() Tail { return nilTail }
 //      // or pass head to another function
 //  }
 func Iter(pairs ...Pair) (tail Tail) {
-	if len(pairs) < 1 {
-		return NilTail()
-	}
+	if len(pairs) < 1 { return NilTail() }
 	return tailRecurse(pairs...)
 }
 
 func tailRecurse(pairs ...Pair) (tail Tail) {
 	return func() (head Head, tail Tail) {
-		if len(pairs) < 1 {
-			return NilTail()()
-		}
+		if len(pairs) < 1 { return NilTail()() }
 		head = func() Pair { return pairs[0] }
 		tail = tailRecurse(pairs[1:]...)
 		return head, tail
@@ -52,7 +48,7 @@ func tailRecurse(pairs ...Pair) (tail Tail) {
 //   If a == nil this is returned directly - f is not evaluated for nil.
 //   If f == nil the identity function is applied.
 func (a Head) Fmap(f func(Head) Head) Head {
-	if f == nil { f = func(a Head) Head{return a} }
+	if f == nil { f = func(a Head) Head { return a } }
 	return func() Pair {
 		if a == nil { return nil }
 		return f(a)
@@ -63,7 +59,7 @@ func (a Head) Fmap(f func(Head) Head) Head {
 //   If a == nil this is returned directly - f is not evaluated for nil.
 //   If f == nil the identity function is applied.
 func (a Head) FmapPair(f func(Pair) Pair) Head {
-	if f == nil { f = func(a Pair) Pair{return a} }
+	if f == nil { f = func(a Pair) Pair { return a } }
 	return func() Pair {
 		if a == nil { return nil }
 		return f(a())
@@ -76,10 +72,10 @@ func (a Head) FmapPair(f func(Pair) Pair) Head {
 //   If f == nil the identity functions is applied.
 func (a Tail) Fmap(f func(Tail) Tail) Tail {
 	if a == nil { return NilTail() }
-	if f == nil { f = func(a Tail) Tail{return a} }
+	if f == nil { f = func(a Tail) Tail { return a } }
 	return func() (head Head, tail Tail) {
 		head, tail = f(a)()
-		if head == nil { return NilTail()()}
+		if head == nil { return NilTail()() }
 		tail = tail.Fmap(f)
 		return
 	}
@@ -89,10 +85,10 @@ func (a Tail) Fmap(f func(Tail) Tail) Tail {
 //   If f == nil the identity functions is applied.
 func (a Tail) FmapHead(f func(Head) Head) Tail {
 	if a == nil { return NilTail() }
-	if f == nil { f = func(a Head) Head{return a} }
+	if f == nil { f = func(a Head) Head { return a } }
 	return func() (head Head, tail Tail) {
 		aHead, tail := a()
-		if aHead == nil { return NilTail()()}
+		if aHead == nil { return NilTail()() }
 		head = func() Pair { return f(aHead)() }
 		tail = tail.FmapHead(f)
 		return
@@ -103,10 +99,10 @@ func (a Tail) FmapHead(f func(Head) Head) Tail {
 //   If f == nil the identity functions is applied.
 func (a Tail) FmapPair(f func(Pair) Pair) Tail {
 	if a == nil { return NilTail() }
-	if f == nil { f = func(a Pair) Pair{return a} }
+	if f == nil { f = func(a Pair) Pair { return a } }
 	return func() (head Head, tail Tail) {
 		aHead, tail := a()
-		if aHead == nil { return NilTail()()}
+		if aHead == nil { return NilTail()() }
 		head = func() (pair Pair) {
 			pair = aHead()
 			if pair != nil { pair = f(pair) }
@@ -155,7 +151,7 @@ func (a Tail) Range() <-chan Pair {
 
 // Sew walks a Tail and applies f to every head().
 // Think of a thread and a needle...
-func (a Tail) Sew(needle func(Pair) ) {
+func (a Tail) Sew(needle func(Pair)) {
 	for head, tail := a(); head != nil; head, tail = tail() {
 		needle(head())
 	}
@@ -212,8 +208,8 @@ func (a Tail) ReduceCardinality(f func(Pair, Cardinality) Cardinality, init Card
 // that does not satisfy the given boolean attribute function.
 func Skip(iter Iterable, pairIs func(Pair) bool) Tail {
 	return func() (head Head, tail Tail) {
-		for head, tail = iter.Tail()(); head !=nil && pairIs(head()); head, tail = tail() { /* noop */ }
-		if head == nil {return NilTail()()}
+		for head, tail = iter.Tail()(); head != nil && pairIs(head()); head, tail = tail() { /* noop */ }
+		if head == nil { return NilTail()() }
 		return
 	}
 }
@@ -224,7 +220,7 @@ func Skip(iter Iterable, pairIs func(Pair) bool) Tail {
 // which evaluate to a pair
 // that satisfies the given boolean attribute function.
 func Only(iter Iterable, pairIs func(Pair) bool) Tail {
-	return Skip(iter, func (a Pair) bool { return !pairIs(a) })
+	return Skip(iter, func(a Pair) bool { return !pairIs(a) })
 }
 
 // ===========================================================================
@@ -256,7 +252,7 @@ func (a Tail) X(iters ...Iterable) Tail {
 	if a != nil {
 		iters = append([]Iterable{a}, iters...)
 	}
-	return X(iters ...)
+	return X(iters...)
 }
 
 // ===========================================================================

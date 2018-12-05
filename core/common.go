@@ -79,7 +79,7 @@ func KindOfPair(a Pair)	kind {
 /* Both implements Pair by returning Both() of the evaluated Head.	*/func (a Head)        Both() (aten, apep interface{}) {
 	if a == nil {return KindOfPair(a), nilHead}
 	if a() == nil {return nilPair{}.Both()};	return a().Both() }
-/* Both implements Pair by returning the Head and Tail a evaluates to.	*/ func (a Tail)        Both() (aten, apep interface{}) {
+/* Both implements Pair by returning the Head and Tail a evaluates to.	*/func (a Tail)        Both() (aten, apep interface{}) {
 	if a == nil {return KindOfPair(a), nil};	return a() }
 
 // ===========================================================================
@@ -145,8 +145,12 @@ func LengthOfPair(a Pair ) (length Cardinality) {
 /* Length implements Pile by returning 0 */func (a nilPair)     Length() Cardinality { return 0 }
 /* Length implements Pile by returning 1 */func (a kind)        Length() Cardinality { return 1 }
 /* Length implements Pile by returning 1 */func (a name)        Length() Cardinality { return 1 }
-/* Length implements Pile by returning 1 */func (a Index)       Length() Cardinality { return 1 }
-/* Length implements Pile by returning 1 */func (a Cardinality) Length() Cardinality { return 1 }
+
+// Length implements Pile by returning 1.
+func (a Index)       Length() Cardinality { return 1 }
+
+// Length implements Pile by returning 1
+func (a Cardinality) Length() Cardinality { return 1 }
 
 // Length implements Pile
 // by returning

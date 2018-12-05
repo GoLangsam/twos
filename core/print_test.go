@@ -10,7 +10,7 @@ import (
 
 // ===========================================================================
 
-func Example_KindOfPair() {
+func ExampleKindOfPair() {
 
 	fmt.Println(KindOfPair(ID("TestName")))
 	fmt.Println(KindOfPair(Index(1)))
@@ -31,7 +31,7 @@ func ExampleStringOfPair() {
 
 // ===========================================================================
 
-func ExampleStringOfPair_Nil() {
+func ExampleStringOfPair_nil() {
 
 	var namE name
 	var indx Index
@@ -73,7 +73,7 @@ func ExampleKindOfPair_nil() {
 	var kinD kind
 	var head Head
 	var tail Tail
-//	var pair Pair
+	//	var pair Pair
 
 	{
 		k := KindOfPair(name)

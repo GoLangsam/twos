@@ -13,11 +13,11 @@ package core
 // A single factor evaluates to its Tail.
 func X(factors ...Iterable) (tail Tail) {
 	l := len(factors)
-	switch{
-	case l < 1:	return NilTail()
-	case l < 2:	return factors[0].Tail()
-	case l < 3:	return mult( factors[0], factors[1] )
-	default:	return mult( factors[0], X(factors[1:]...) )
+	switch {
+	case l < 1: return NilTail()
+	case l < 2: return factors[0].Tail()
+	case l < 3: return mult(factors[0], factors[1])
+	default:    return mult(factors[0], X(factors[1:]...))
 	}
 }
 
@@ -28,7 +28,7 @@ func mult(a, b Iterable) (tail Tail) {
 	aHead, _ := a.Tail()()
 	aTail, bTail, reset := a.Tail(), b.Tail(), b.Tail()
 
-	tail = func() (Head, Tail) {	return prod(aHead, aTail, bTail, reset) }
+	tail = func() (Head, Tail) { return prod(aHead, aTail, bTail, reset) }
 	return
 }
 
@@ -42,7 +42,7 @@ func prod(aHead Head, aTail, bTail, reset Tail) (head Head, tail Tail) {
 
 	if aHead == nil || bHead == nil { return NilTail()() }
 
-	head = func() Pair { 		return Join(aHead, bHead) }
-	tail = func() (Head, Tail) {	return prod(aHead, aTail, bTail, reset) }
+	head = func() Pair         { return Join(aHead, bHead) }
+	tail = func() (Head, Tail) { return prod(aHead, aTail, bTail, reset) }
 	return
 }

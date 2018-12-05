@@ -152,7 +152,9 @@ func (a anyTypeS) Both() (aten, apep interface{}) {return a[:0], a[1:]}
 
 /* Length implements Pile by returning 1 */ func (a onesOfanyType) Length() Cardinality { return 1 }
 /* Length implements Pile by returning 1 */ func (a twosOfanyType) Length() Cardinality { return 1 }
-/* Length implements Pile by the length  */ func (a PileOfanyType) Length() Cardinality { return a.lookUpanyType.Length() }
+
+// Length implements Pile by returning the length of the Pile.
+func (a PileOfanyType) Length() Cardinality { return a.lookUpanyType.Length() }
 
 func (a onesOfanyType) Of(index Index) Head { if index == 1 {return func() Pair {return a}}; nilHead, _ := NilTail()(); return nilHead }
 func (a twosOfanyType) Of(index Index) Head { if index == 1 {return func() Pair {return a}}; nilHead, _ := NilTail()(); return nilHead }
