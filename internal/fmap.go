@@ -20,7 +20,7 @@ func fmapanyType() { // to fool genny
 // Naming conventions:
 //  anyTypes   - a variadic sequence of anyType
 //  anyTypeS   - a slice of anyType's
-//  anyTypeSS  - a slice of slices of anyType
+//  anyTypeSs  - a variadic sequence of slices of anyType
 //  anyTypeRoC - a read-only channel of anyType
 
 // FmapanyTypes establishes []anyType as a Functor.
@@ -34,9 +34,9 @@ func FmapanyTypes(f func(anyType) anyType, anyTypes ...anyType) (anyTypeS []anyT
 
 // JoinanyTypeS helps []anyType to become a Monad.
 // It's just a list comprehension - aka Concat.
-func JoinanyTypeS(anyTypeSS [][]anyType) (anyTypeS []anyType) {
-	for i := range anyTypeSS {
-		anyTypeS = append(anyTypeS, anyTypeSS[i]...)
+func JoinanyTypeS(anyTypeSs ...[]anyType) (anyTypeS []anyType) {
+	for i := range anyTypeSs {
+		anyTypeS = append(anyTypeS, anyTypeSs[i]...)
 	}
 	return
 }

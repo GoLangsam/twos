@@ -5,6 +5,7 @@
 package core
 
 import (
+	"sort"
 	"github.com/mauricelam/genny/generic"
 )
 
@@ -17,11 +18,6 @@ func pileanyType() { // to fool genny
 
 type onesOfanyType struct {
 	ID
-	Apep anyType
-}
-
-type twosOfanyType struct {
-	Aten anyType
 	Apep anyType
 }
 
@@ -50,28 +46,36 @@ func (a lookUpanyType) Random() <-chan anyType {
 
 // ===========================================================================
 
-// pairOfanyType is implemented by onesOfanyType, twosOfanyType and PileOfanyType.
+// pairOfanyType is implemented by onesOfanyType and PileOfanyType.
 type pairOfanyType interface {
-	Pair
-	Tail() Tail // Iterable
-}
-
-// PilerOfanyType is implemented by *PileOfanyType
-type PilerOfanyType interface {
 	Pair
 	Tail() Tail                // Iterable
 	Name() string              // Named
+	String() string            // Stringer
 	Of(Index) Head             // Indexed
 	Contains(interface{}) bool // Container
-	LookeranyType              // Pile: Length()
-	append(items ...anyType) *PileOfanyType
-	add(item anyType) *PileOfanyType
-	At(Index) anyType
-	Range() <-chan anyType
 }
 
-// LookeranyType is implemented by lookUpanyType
-type LookeranyType interface {
+// pilerOfanyType is implemented by *PileOfanyType
+type pilerOfanyType interface {
+	Pair
+	Tail() Tail                // Iterable
+	Name() string              // Named
+	String() string            // Stringer
+	Of(Index) Head             // Indexed
+	Contains(interface{}) bool // Container
+
+	At(Index) anyType
+	Range() <-chan anyType
+	Sort(less func(i, j int) bool) *PileOfanyType
+
+	lookerOfanyType            // Pile: Length()
+	append(items ...anyType) *PileOfanyType
+	add(item anyType) *PileOfanyType
+}
+
+// lookerOfanyType is implemented by lookUpanyType
+type lookerOfanyType interface {
 	put(item anyType, idx Index)              // may panic("Overflow")
 	Idx(item anyType) (idx Index, found bool) // returns the index of item iff applicable
 	Len() int                                 // current Length
@@ -83,10 +87,9 @@ type LookeranyType interface {
 func assertPileOfanyTypeInterfaces() {
 	var (
 		_, _, _ pairOfanyType = onesOfanyType{}, &onesOfanyType{}, new(onesOfanyType)
-		_, _, _ pairOfanyType = twosOfanyType{}, &twosOfanyType{}, new(twosOfanyType)
 
-		_, _ LookeranyType  = &lookUpanyType{}, new(lookUpanyType)
-		_, _ PilerOfanyType = &PileOfanyType{}, new(PileOfanyType)
+		_, _ lookerOfanyType  = &lookUpanyType{}, new(lookUpanyType)
+		_, _ pilerOfanyType = &PileOfanyType{}, new(PileOfanyType)
 	)
 }
 
@@ -130,10 +133,6 @@ func NewPileOfanyType(name ID, items ...anyType) *PileOfanyType {
 func (a onesOfanyType) Both() (aten, apep interface{}) { return a.ID, a.Apep }
 
 // Both implements Pair
-// by returning both parts of a.
-func (a twosOfanyType) Both() (aten, apep interface{}) { return a.Aten, a.Apep }
-
-// Both implements Pair
 // by returning both parts of a,
 // it's ID and it's items (as slice of anyType).
 func (a PileOfanyType) Both() (aten, apep interface{}) { return a.ID, a.anyTypeS }
@@ -147,9 +146,6 @@ func (a anyTypeS) Both() (aten, apep interface{}) { return a[:0], a[1:] }
 func (a onesOfanyType) String() string { return StringOfTwos(a.ID, a.Apep) }
 
 // String implements fmt.Stringer.
-func (a twosOfanyType) String() string { return StringOfTwos(a.Aten, a.Apep) }
-
-// String implements fmt.Stringer.
 func (a PileOfanyType) String() string { return StringOfTwos(a.ID, a.anyTypeS) }
 
 // String implements fmt.Stringer.
@@ -160,20 +156,10 @@ func (a anyTypeS) String() string { return StringOfTwos(a[:0], a[1:]) }
 // Length implements Pile by returning 1.
 func (a onesOfanyType) Length() Cardinality { return 1 }
 
-// Length implements Pile by returning 1.
-func (a twosOfanyType) Length() Cardinality { return 1 }
-
 // Length implements Pile by returning the length of the Pile.
 func (a PileOfanyType) Length() Cardinality { return a.lookUpanyType.Length() }
 
 func (a onesOfanyType) Of(index Index) Head {
-	if index == 1 {
-		return func() Pair { return a }
-	}
-	nilHead, _ := NilTail()()
-	return nilHead
-}
-func (a twosOfanyType) Of(index Index) Head {
 	if index == 1 {
 		return func() Pair { return a }
 	}
@@ -188,14 +174,6 @@ func (a twosOfanyType) Of(index Index) Head {
 // a head which evaluates to a ( head() == Pair(a) ) and
 // as tail the unique NilTail().
 func (a onesOfanyType) Tail() Tail {
-	return func() (Head, Tail) { return func() Pair { return a }, NilTail() }
-}
-
-// Tail implements Iterable
-// by returning
-// a head which evaluates to a ( head() == Pair(a) ) and
-// as tail the unique NilTail().
-func (a twosOfanyType) Tail() Tail {
 	return func() (Head, Tail) { return func() Pair { return a }, NilTail() }
 }
 
@@ -232,9 +210,19 @@ func (a PileOfanyType) tail(idx int) Tail {
 
 // Contains implements Container
 // by telling whether the given item is of suitable type
-// and if so, whether a contains it this item.
+// and if so, whether a contains this item.
+func (a onesOfanyType) Contains(item interface{}) (contains bool) {
+	if i, contains := item.(onesOfanyType); contains && i == a { return contains }
+	if i, contains := item.(anyType); contains && i == a.Apep { return contains }
+	return false
+}
+
+// Contains implements Container
+// by telling whether the given item is of suitable type
+// and if so, whether a contains this item.
 func (a PileOfanyType) Contains(item interface{}) (contains bool) {
-	if i, contains := item.(anyType); contains {
+	var i anyType
+	if i, contains = item.(anyType); contains {
 		_, contains = a.Idx(i)
 	}
 	return
@@ -297,7 +285,7 @@ func (a PileOfanyType) Range() <-chan anyType {
 
 // ===========================================================================
 
-// Fmap returns another pile with f applied to each item.
+// Fmap returns a new pile with f applied to each item.
 func (a PileOfanyType) Fmap(f func(anyType) anyType) *PileOfanyType {
 	cap := len(a.anyTypeS)
 	pile := &PileOfanyType{
@@ -308,6 +296,31 @@ func (a PileOfanyType) Fmap(f func(anyType) anyType) *PileOfanyType {
 	}
 	for _, item := range a.anyTypeS {
 		pile = pile.add(f(item))
+	}
+	return pile
+}
+
+// ===========================================================================
+
+// Sort returns a new slice sorted according to less.
+func (a anyTypeS) Sort(less func(i, j int) bool) anyTypeS {
+	target := make([]anyType, 0, len(a))
+	copy(target, a)
+	sort.Slice(a, less) // No need for stable sort as there are no duplicates.
+	return a
+}
+
+// Sort returns another pile sorted according to less.
+func (a PileOfanyType) Sort(less func(i, j int) bool) *PileOfanyType {
+	cap := len(a.anyTypeS)
+	pile := &PileOfanyType{
+		a.ID,
+		a.anyTypeS.Sort(less),
+		lookUpanyType{make(map[anyType]Index, cap)},
+		lookUpanyType{make(map[anyType]Index)},
+	}
+	for i, item := range pile.anyTypeS {
+		pile.lookUpanyType.look[item] = Index(i + 1)
 	}
 	return pile
 }
