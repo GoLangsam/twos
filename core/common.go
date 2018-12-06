@@ -193,6 +193,62 @@ func (a Tail) LengthRecursive() Cardinality {
 
 // Contains TODO
 
+// Contains implements Container
+// by telling whether the given item is of suitable type
+// and if so, whether a contains this item.
+func (a nilPair) Contains(item interface{}) (contains bool) {
+	if i, contains := item.(nilPair); contains && i == a { return contains }
+	return false
+}
+
+// Contains implements Container
+// by telling whether the given item is of suitable type
+// and if so, whether a contains this item.
+func (a name) Contains(item interface{}) (contains bool) {
+	if i, contains := item.(name); contains && i == a { return contains }
+	return false
+}
+
+// Contains implements Container
+// by telling whether the given item is of suitable type
+// and if so, whether a contains this item.
+func (a Index) Contains(item interface{}) (contains bool) {
+	if i, contains := item.(Index); contains && i == a { return contains }
+	return false
+}
+
+// Contains implements Container
+// by telling whether the given item is of suitable type
+// and if so, whether a contains this item.
+func (a Cardinality) Contains(item interface{}) (contains bool) {
+	if i, contains := item.(Cardinality); contains && i == a { return contains }
+	return false
+}
+
+// Contains implements Container
+// by telling whether the given item is of suitable type
+// and if so, whether a contains this item.
+func (a Head) Contains(item interface{}) (contains bool) {
+	if a == nil { return item == nil }
+	if i, contains := item.(Pair); contains && i == a() { return contains }
+	return false
+}
+
+// Contains implements Container
+// by telling whether the given item implements Pair
+// and if so, whether some Head evaluates to a Pair which IsEqual to this item.
+func (a Tail) Contains(item interface{}) (contains bool) {
+	if a == nil { return item == nil }
+
+	if pair, is := item.(Pair); is {
+		eq := IsEqual(pair)
+		for head, tail := a(); head != nil; head, tail = tail() {
+			if eq(head()) { return true}
+		}
+	}
+	return false
+}
+
 // ===========================================================================
 
 // Of returns a nilHead.

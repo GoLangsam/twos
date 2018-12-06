@@ -98,14 +98,14 @@ type Container interface {
 
 func ExampleContainer_interface() {
 
-	/*
-		var _ Container = ID("Test")
-		var _ Container = Index(4711)
-		var _ Container = Cardinality(4711)
+	var _ Container = ID("Test")
+	var _ Container = Index(4711)
+	var _ Container = Cardinality(4711)
 
-		var _ Container = NilTail()
-		var _, _ Container = NilTail()()
-	*/
+	var _ Container = NilTail()
+	var _, _ Container = NilTail()()
 
+	var _, _ Container = nilPair{}, &nilPair{}
 	var _, _ Container = nest{}, &nest{}
+	var _, _ Container = kind{}, &kind{}
 }
