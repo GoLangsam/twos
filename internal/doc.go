@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // Package core provides generic implementations such as
-//   - bool.go for boolean operations (And, Or, Not) on attribute functions
+//   - bool.go for boolean operations (And, Or, Not) on predicates
 //   - fmap.go for Fmap... and Join... for slices and read-only channels
 //   - pile.go for PileOf...
 //
