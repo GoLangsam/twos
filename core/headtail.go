@@ -97,6 +97,7 @@ func (a Tail) FmapHead(f func(Head) Head) Tail {
 
 // FmapPair returns a Tail with f applied to each pair its heads evaluate to.
 //   If f == nil the identity functions is applied.
+//   If some head evaluates to a Pair == nil this is returned directly - f is not evaluated for nil.
 func (a Tail) FmapPair(f func(Pair) Pair) Tail {
 	if a == nil { return NilTail() }
 	if f == nil { f = func(a Pair) Pair { return a } }
@@ -151,10 +152,13 @@ func (a Tail) Range() <-chan Pair {
 
 // Sew walks a Tail and applies f to every head().
 // Think of a thread and a needle...
-func (a Tail) Sew(needle func(Pair)) {
+//
+// The original Tail is returned in order to ease chaining with other methods.
+func (a Tail) Sew(needle func(Pair)) Tail {
 	for head, tail := a(); head != nil; head, tail = tail() {
 		needle(head())
 	}
+	return a
 }
 
 // ===========================================================================
@@ -169,6 +173,14 @@ func (a Tail) Reduce(f func(Pair, interface{}) interface{}, init interface{}) in
 
 // ReduceInt returns the result of applying f along the Tail.
 func (a Tail) ReduceInt(f func(Pair, int) int, init int) int {
+	for head, tail := a(); head != nil; head, tail = tail() {
+		init = f(head(), init)
+	}
+	return init
+}
+
+// ReduceBool returns the result of applying f along the Tail.
+func (a Tail) ReduceBool(f func(Pair, bool) bool, init bool) bool {
 	for head, tail := a(); head != nil; head, tail = tail() {
 		init = f(head(), init)
 	}
