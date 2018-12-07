@@ -5,8 +5,8 @@
 package core
 
 import (
-	"sort"
 	"github.com/mauricelam/genny/generic"
+	"sort"
 )
 
 func pileanyType() { // to fool genny
@@ -69,7 +69,7 @@ type pilerOfanyType interface {
 	Range() <-chan anyType
 	Sort(less func(i, j int) bool) *PileOfanyType
 
-	lookerOfanyType            // Pile: Length()
+	lookerOfanyType // Pile: Length()
 	append(items ...anyType) *PileOfanyType
 	add(item anyType) *PileOfanyType
 }
@@ -88,8 +88,8 @@ func assertPileOfanyTypeInterfaces() {
 	var (
 		_, _, _ pairOfanyType = onesOfanyType{}, &onesOfanyType{}, new(onesOfanyType)
 
-		_, _ lookerOfanyType  = &lookUpanyType{}, new(lookUpanyType)
-		_, _ pilerOfanyType = &PileOfanyType{}, new(PileOfanyType)
+		_, _ lookerOfanyType = &lookUpanyType{}, new(lookUpanyType)
+		_, _ pilerOfanyType  = &PileOfanyType{}, new(PileOfanyType)
 	)
 }
 
@@ -212,8 +212,12 @@ func (a PileOfanyType) tail(idx int) Tail {
 // by telling whether the given item is of suitable type
 // and if so, whether a contains this item.
 func (a onesOfanyType) Contains(item interface{}) (contains bool) {
-	if i, contains := item.(onesOfanyType); contains && i == a { return contains }
-	if i, contains := item.(anyType); contains && i == a.Apep { return contains }
+	if i, contains := item.(onesOfanyType); contains && i == a {
+		return contains
+	}
+	if i, contains := item.(anyType); contains && i == a.Apep {
+		return contains
+	}
 	return false
 }
 

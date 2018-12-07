@@ -47,7 +47,8 @@ type Pair = core.Pair
 // ===========================================================================
 
 var (
-	NilTail = core.NilTail
+	// NilTail and more functions lifted from core package
+	NilTail      = core.NilTail
 	StringOfTwos = core.StringOfTwos
 	StringOfOnes = core.StringOfOnes
 	StringOfPair = core.StringOfPair

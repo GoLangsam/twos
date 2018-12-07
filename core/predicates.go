@@ -32,9 +32,13 @@ func IsEqual(a Pair) (pairIs func(Pair) bool) {
 	aten, apep := a.Both()
 	return func(item Pair) (isEqual bool) {
 		// TODO: Do we need reflect.DeepEqual here?
-		if item == a { return true}
+		if item == a {
+			return true
+		}
 		iten, ipep := item.Both()
-		if aten == iten && apep == ipep { return true}
+		if aten == iten && apep == ipep {
+			return true
+		}
 		return false
 	}
 }
