@@ -46,10 +46,18 @@ type Pair = core.Pair
 
 // ===========================================================================
 
-var (
-	// NilTail and more functions lifted from core package
-	NilTail      = core.NilTail
+var ( // NilTail and more functions lifted from core package
+
+	// NilTail is a helper, it returns the Tail which evaluates to nil, nil.
+	//  Note: this Tail is unique. So its the tail, not a tail.
+	NilTail = core.NilTail
+
+	// StringOfTwos returns the string of two items.
 	StringOfTwos = core.StringOfTwos
+
+	// StringOfOnes returns the string of one item.
 	StringOfOnes = core.StringOfOnes
+
+	// StringOfPair returns the string of a Pair.
 	StringOfPair = core.StringOfPair
 )

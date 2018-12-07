@@ -74,7 +74,7 @@ func (a Tail) Printer(stringer func(a Pair) string) Tail {
 
 // ===========================================================================
 
-// StringOfPair returns the string of a Pair
+// StringOfPair returns the string of a Pair.
 func StringOfPair(a Pair) string {
 	if a == nil {
 		a = nilPair{}
