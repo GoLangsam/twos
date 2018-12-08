@@ -76,11 +76,11 @@ type pilerOfanyType interface {
 
 // lookerOfanyType is implemented by lookUpanyType
 type lookerOfanyType interface {
-	put(item anyType, idx Index)              // may panic("Overflow")
 	Idx(item anyType) (idx Index, found bool) // returns the index of item iff applicable
 	Len() int                                 // current Length
 	Length() Cardinality                      // current Length
-	Random() <-chan anyType
+	Random() <-chan anyType                   // a la Range, just: in random order
+	put(item anyType, idx Index)              // may panic("Overflow")
 }
 
 // dummy func avoids to see these upon use of go doc -u
