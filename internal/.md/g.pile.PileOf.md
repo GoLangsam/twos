@@ -27,6 +27,7 @@ func (a PileOfanyType) Of(idx Index) Head
 func (a PileOfanyType) Random() <-chan anyType
 func (a PileOfanyType) Range() <-chan anyType
 func (a PileOfanyType) S() []anyType
+func (a PileOfanyType) Sort(less func(i, j int) bool) *PileOfanyType
 func (a PileOfanyType) String() string
 func (a PileOfanyType) Tail() Tail
 func (a *PileOfanyType) add(item anyType) *PileOfanyType

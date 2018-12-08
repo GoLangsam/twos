@@ -6,6 +6,7 @@ type onesOfanyType struct {
 }
 
 func (a onesOfanyType) Both() (aten, apep interface{})
+func (a onesOfanyType) Contains(item interface{}) (contains bool)
 func (a onesOfanyType) Length() Cardinality
 func (a onesOfanyType) Of(index Index) Head
 func (a onesOfanyType) String() string
