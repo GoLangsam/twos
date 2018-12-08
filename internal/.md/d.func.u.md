@@ -2,7 +2,6 @@
 var isanyTypeFalse = func(a anyType) bool { ... }
 var isanyTypeTrue = func(a anyType) bool { ... }
 func FmapanyTypeRoC(f func(anyType) anyType, RoCs ...<-chan anyType) <-chan anyType
-func assertPileOfanyTypeInterfaces()
 func boolanyType()
 func fmapanyType()
 func pileanyType()

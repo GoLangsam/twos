@@ -46,59 +46,6 @@ func (a lookUpanyType) Random() <-chan anyType {
 
 // ===========================================================================
 
-// pairOfanyType is implemented by onesOfanyType and PileOfanyType.
-type pairOfanyType interface {
-	Pair
-	Tail() Tail                // Iterable
-	Name() string              // Named
-	String() string            // Stringer
-	Of(Index) Head             // Indexed
-	Contains(interface{}) bool // Container
-}
-
-// pilerOfanyType is implemented by *PileOfanyType
-type pilerOfanyType interface {
-	Pair
-	Tail() Tail                // Iterable
-	Name() string              // Named
-	String() string            // Stringer
-	Of(Index) Head             // Indexed
-	Contains(interface{}) bool // Container
-
-	At(Index) anyType
-	Duplicates() map[anyType]Index
-	Fmap(f func(anyType) anyType) *PileOfanyType
-	Range() <-chan anyType
-	S() []anyType
-	Sort(less func(i, j int) bool) *PileOfanyType
-
-	lookerOfanyType // Pile: Length()
-
-	add(item anyType) *PileOfanyType
-	append(items ...anyType) *PileOfanyType
-}
-
-// lookerOfanyType is implemented by lookUpanyType
-type lookerOfanyType interface {
-	Idx(item anyType) (idx Index, found bool) // returns the index of item iff applicable
-	Len() int                                 // current Length
-	Length() Cardinality                      // current Length
-	Random() <-chan anyType                   // a la Range, just: in random order
-	put(item anyType, idx Index)              // may panic("Overflow")
-}
-
-// dummy func avoids to see these upon use of go doc -u
-func assertPileOfanyTypeInterfaces() {
-	var (
-		_, _, _ pairOfanyType = onesOfanyType{}, &onesOfanyType{}, new(onesOfanyType)
-
-		_, _ lookerOfanyType = &lookUpanyType{}, new(lookUpanyType)
-		_, _ pilerOfanyType  = &PileOfanyType{}, new(PileOfanyType)
-	)
-}
-
-// ===========================================================================
-
 type anyTypeS []anyType
 
 // PileOfanyType holds different items of some kind, accessible in order of arrival

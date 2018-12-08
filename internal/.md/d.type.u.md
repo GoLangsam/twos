@@ -10,7 +10,4 @@ type anyType generic.Type
 type anyTypeIs func(anyType) bool
 type anyTypeS []anyType
 type lookUpanyType struct{ ... }
-type lookerOfanyType interface{ ... }
 type onesOfanyType struct{ ... }
-type pairOfanyType interface{ ... }
-type pilerOfanyType interface{ ... }

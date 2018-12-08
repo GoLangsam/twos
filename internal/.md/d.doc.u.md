@@ -20,7 +20,6 @@ var NilTail = core.NilTail ...
 var isanyTypeFalse = func(a anyType) bool { ... }
 var isanyTypeTrue = func(a anyType) bool { ... }
 func FmapanyTypeRoC(f func(anyType) anyType, RoCs ...<-chan anyType) <-chan anyType
-func assertPileOfanyTypeInterfaces()
 func boolanyType()
 func fmapanyType()
 func pileanyType()
@@ -38,7 +37,4 @@ type anyType generic.Type
 type anyTypeIs func(anyType) bool
 type anyTypeS []anyType
 type lookUpanyType struct{ ... }
-type lookerOfanyType interface{ ... }
 type onesOfanyType struct{ ... }
-type pairOfanyType interface{ ... }
-type pilerOfanyType interface{ ... }

@@ -16,9 +16,7 @@
 @Echo Generic types: PileOf ...
 @go doc -u . onesofanytype	>	.\.md\g.pile.OnesOf.md
 @go doc -u . lookupanytype	>	.\.md\g.pile.LookUp.md
-@go doc -u . lookerofanytype	>	.\.md\g.pile.LookEr.md
 @go doc -u . pileofanytype	>	.\.md\g.pile.PileOf.md
-@go doc -u . pilerofanytype	>	.\.md\g.pile.Piler.md
 @go doc -u . anytypes		>	.\.md\g.pile.S.md
 @go doc -u . anytypeis		>	.\.md\g.pile.Is.md
 
