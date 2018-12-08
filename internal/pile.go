@@ -66,12 +66,16 @@ type pilerOfanyType interface {
 	Contains(interface{}) bool // Container
 
 	At(Index) anyType
+	Duplicates() map[anyType]Index
+	Fmap(f func(anyType) anyType) *PileOfanyType
 	Range() <-chan anyType
+	S() []anyType
 	Sort(less func(i, j int) bool) *PileOfanyType
 
 	lookerOfanyType // Pile: Length()
-	append(items ...anyType) *PileOfanyType
+
 	add(item anyType) *PileOfanyType
+	append(items ...anyType) *PileOfanyType
 }
 
 // lookerOfanyType is implemented by lookUpanyType
