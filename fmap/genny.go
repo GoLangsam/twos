@@ -9,6 +9,6 @@
 // core interface: Iterable,Kind,Type,Pair
 // void interface: interface{}
 
-//go:generate genny	-in ..\internal\fmap.go		-out gen.fmap.go	-pkg fmap gen "anyType=interface{},Cardinality,Index,ID,Type,Iterable,Pair,Pile"
+//go:generate genny	-in ..\internal\fmap.go		-out gen.fmap.go	-pkg fmap gen "anyType=interface{},Cardinality,Index,ID,Head,Tail,Type,Container,Indexed,Iterable,Named,Pair,Pile"
 
 package fmap
