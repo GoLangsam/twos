@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-func testanyType() (ID, []anyType) {
-	name := ID("any")
+func testanyType() (string, []anyType) {
+	name := "any"
 	data := []anyType{
 		int(4),
 		Cardinality(7),

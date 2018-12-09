@@ -5,7 +5,7 @@ func FmapanyTypeRoC(f func(anyType) anyType, RoCs ...<-chan anyType) <-chan anyT
 func boolanyType()
 func fmapanyType()
 func pileanyType()
-    func NewPileOfanyType(name ID, items ...anyType) *PileOfanyType
+    func NewPileOfanyType(name string, items ...anyType) *PileOfanyType
     func FmapanyTypes(f func(anyType) anyType, anyTypes ...anyType) (anyTypeS []anyType)
     func JoinanyTypeS(anyTypeSs ...[]anyType) (anyTypeS []anyType)
 type anyTypeIs func(anyType) bool

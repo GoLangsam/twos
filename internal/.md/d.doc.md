@@ -26,5 +26,5 @@ type ID = core.ID
 type Index = core.Index
 type Pair = core.Pair
 type PileOfanyType struct{ ... }
-    func NewPileOfanyType(name ID, items ...anyType) *PileOfanyType
+    func NewPileOfanyType(name string, items ...anyType) *PileOfanyType
 type Tail = core.Tail

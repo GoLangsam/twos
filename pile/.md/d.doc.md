@@ -17,21 +17,21 @@ type Pair = core.Pair
 type PairS []Pair
 type Pile interface{ ... }
 type PileOfCardinality struct{ ... }
-    func NewPileOfCardinality(name ID, items ...Cardinality) *PileOfCardinality
+    func NewPileOfCardinality(name string, items ...Cardinality) *PileOfCardinality
 type PileOfID struct{ ... }
-    func NewPileOfID(name ID, items ...ID) *PileOfID
+    func NewPileOfID(name string, items ...ID) *PileOfID
 type PileOfIndex struct{ ... }
-    func NewPileOfIndex(name ID, items ...Index) *PileOfIndex
+    func NewPileOfIndex(name string, items ...Index) *PileOfIndex
 type PileOfInterface struct{ ... }
-    func NewPileOfInterface(name ID, items ...interface{}) *PileOfInterface
+    func NewPileOfInterface(name string, items ...interface{}) *PileOfInterface
 type PileOfIterable struct{ ... }
-    func NewPileOfIterable(name ID, items ...Iterable) *PileOfIterable
+    func NewPileOfIterable(name string, items ...Iterable) *PileOfIterable
 type PileOfPair struct{ ... }
-    func NewPileOfPair(name ID, items ...Pair) *PileOfPair
+    func NewPileOfPair(name string, items ...Pair) *PileOfPair
 type PileOfPile struct{ ... }
-    func NewPileOfPile(name ID, items ...Pile) *PileOfPile
+    func NewPileOfPile(name string, items ...Pile) *PileOfPile
 type PileOfType struct{ ... }
-    func NewPileOfType(name ID, items ...Type) *PileOfType
+    func NewPileOfType(name string, items ...Type) *PileOfType
 type PileS []Pile
 type Tail = core.Tail
 type Type = core.Type

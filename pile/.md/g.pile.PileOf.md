@@ -14,7 +14,7 @@ type PileOfPile struct {
     Intentionally there is no removal, neither are add nor append exported.
 
 
-func NewPileOfPile(name ID, items ...Pile) *PileOfPile
+func NewPileOfPile(name string, items ...Pile) *PileOfPile
 func (a PileOfPile) At(idx Index) Pile
 func (a PileOfPile) Both() (aten, apep interface{})
 func (a PileOfPile) Contains(item interface{}) (contains bool)

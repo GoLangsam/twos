@@ -63,11 +63,11 @@ type PileOfanyType struct {
 
 // NewPileOfanyType returns a named Pile of items.
 // There must be at least one item.
-func NewPileOfanyType(name ID, items ...anyType) *PileOfanyType {
+func NewPileOfanyType(name string, items ...anyType) *PileOfanyType {
 	soManyItems := len(items)
 
 	pile := &PileOfanyType{
-		name,
+		ID(name),
 		make([]anyType, 0, soManyItems),
 		lookUpanyType{make(map[anyType]Index, soManyItems)},
 		lookUpanyType{make(map[anyType]Index)},
