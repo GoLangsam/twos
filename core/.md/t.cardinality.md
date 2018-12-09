@@ -6,6 +6,7 @@ type Cardinality = cardinalNumber
 
 func LengthOfPair(a Pair) (length Cardinality)
 func (a Cardinality) Both() (aten, apep interface{})
+func (a Cardinality) Contains(item interface{}) (contains bool)
 func (a Cardinality) Length() Cardinality
 func (a Cardinality) Name() string
 func (a Cardinality) Of(index Index) Head

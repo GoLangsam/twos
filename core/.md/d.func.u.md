@@ -1,4 +1,5 @@
 var nilHead Head = func() Pair { ... } ...
+func IsEqual(a Pair) (pairIs func(Pair) bool)
 func IsKind() (pairIs func(Pair) bool)
 func IsNested() (pairIs func(Pair) bool)
 func StringOfOnes(a interface{}) string

@@ -5,6 +5,7 @@ type name string
 
 
 func (a name) Both() (aten, apep interface{})
+func (a name) Contains(item interface{}) (contains bool)
 func (a name) Length() Cardinality
 func (a name) Name() string
 func (a name) Of(index Index) Head

@@ -8,6 +8,7 @@ const tailEnd = "]"
 const twosFmt = "{ %+v | %+v }"
 var nilHead Head = func() Pair { ... } ...
 var TypeOf = reflect.TypeOf
+func IsEqual(a Pair) (pairIs func(Pair) bool)
 func IsKind() (pairIs func(Pair) bool)
 func IsNested() (pairIs func(Pair) bool)
 func StringOfOnes(a interface{}) string

@@ -9,6 +9,7 @@ type Index = ordinalNumber
 func At(i int) Index
 func (a Index) AsOffset() int
 func (a Index) Both() (aten, apep interface{})
+func (a Index) Contains(item interface{}) (contains bool)
 func (a Index) Length() Cardinality
 func (a Index) Name() string
 func (a Index) Of(index Index) Head

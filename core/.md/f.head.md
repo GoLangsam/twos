@@ -5,6 +5,7 @@ type Head func() Pair
 
 
 func (a Head) Both() (aten, apep interface{})
+func (a Head) Contains(item interface{}) (contains bool)
 func (a Head) Fmap(f func(Head) Head) Head
 func (a Head) FmapPair(f func(Pair) Pair) Head
 func (a Head) Length() Cardinality
