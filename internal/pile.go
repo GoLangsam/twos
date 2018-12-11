@@ -91,7 +91,10 @@ func (a PileOfanyType) Both() (aten, apep interface{}) { return a.ID, a.anyTypeS
 // Both implements Pair
 // by returning both parts of a,
 // a slice of the first item and a slice of the remaining items.
-func (a anyTypeS) Both() (aten, apep interface{}) { return a[:0], a[1:] }
+func (a anyTypeS) Both() (aten, apep interface{}) {
+	if len(a) > 0 {
+	return a[:1], a[1:] }
+	return a[:0], a[0:] }
 
 // String implements fmt.Stringer.
 func (a onesOfanyType) String() string { return StringOfTwos(a.ID, a.Apep) }
@@ -100,9 +103,18 @@ func (a onesOfanyType) String() string { return StringOfTwos(a.ID, a.Apep) }
 func (a PileOfanyType) String() string { return StringOfTwos(a.ID, a.anyTypeS) }
 
 // String implements fmt.Stringer.
-func (a anyTypeS) String() string { return StringOfTwos(a[:0], a[1:]) }
+func (a anyTypeS) String() string {
+	if len(a) > 0 {
+	return StringOfTwos(a[:1], a[1:]) }
+	return StringOfTwos("<nil>", "[<nil>...]") }
 
 // ===========================================================================
+
+// Len reports the length.
+func (a anyTypeS) Len int { return len(a) }
+
+// Length implements Pile by returning the length.
+func (a anyTypeS) Length() Cardinality { return Cardinality(len(a)) }
 
 // Length implements Pile by returning 1.
 func (a onesOfanyType) Length() Cardinality { return 1 }
