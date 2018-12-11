@@ -111,7 +111,7 @@ func (a anyTypeS) String() string {
 // ===========================================================================
 
 // Len reports the length.
-func (a anyTypeS) Len int { return len(a) }
+func (a anyTypeS) Len() int { return len(a) }
 
 // Length implements Pile by returning the length.
 func (a anyTypeS) Length() Cardinality { return Cardinality(len(a)) }
