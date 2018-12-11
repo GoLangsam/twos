@@ -119,9 +119,14 @@ func (a anyTypeS) Length() Cardinality { return Cardinality(len(a)) }
 // Length implements Pile by returning 1.
 func (a onesOfanyType) Length() Cardinality { return 1 }
 
+// Len reports the length.
+func (a PileOfanyType) Len() int { return a.anyTypeS.Len() }
+// Note: Inherited both from anyTypeS and from lookUpanyType
+
 // Length implements Pile by returning the length of the Pile.
 func (a PileOfanyType) Length() Cardinality { return a.lookUpanyType.Length() }
 
+// Of
 func (a onesOfanyType) Of(index Index) Head {
 	if index == 1 {
 		return func() Pair { return a }

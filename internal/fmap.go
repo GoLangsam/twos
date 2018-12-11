@@ -45,7 +45,7 @@ func JoinanyTypeS(anyTypeSs ...[]anyType) (anyTypeS []anyType) {
 // It's called 'return' in functional languages.
 func LiftanyType(anyTypes ...anyType) (anyTypeS []anyType) {
 	anyTypeS = []anyType{}
-	for i, item := range anyTypes {
+	for _, item := range anyTypes {
 		anyTypeS = append(anyTypeS, item)
 	}
 	return
