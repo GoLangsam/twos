@@ -41,7 +41,18 @@ func JoinanyTypeS(anyTypeSs ...[]anyType) (anyTypeS []anyType) {
 	return
 }
 
+// LiftanyType helps []anyType to become a Monad.
+// It's called 'return' in functional languages.
+func LiftanyType(anyTypes ...anyType) (anyTypeS []anyType) {
+	anyTypeS = []anyType{}
+	for i, item := range anyTypes {
+		anyTypeS = append(anyTypeS, item)
+	}
+	return
+}
+
 // FmapanyTypeRoC establishes <-chan anyType as a Functor.
+//  Note: See github.com/GoLangsam/pipe/s for more useful patterns.
 func FmapanyTypeRoC(f func(anyType) anyType, RoCs ...<-chan anyType) <-chan anyType {
 	out := make(chan anyType)
 	go func(WoC chan<- anyType, f func(anyType) anyType, RoCs ...<-chan anyType) {
