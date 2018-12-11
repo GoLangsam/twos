@@ -34,6 +34,7 @@ type Tail = core.Tail
 type anyType generic.Type
     func FmapanyTypes(f func(anyType) anyType, anyTypes ...anyType) (anyTypeS []anyType)
     func JoinanyTypeS(anyTypeSs ...[]anyType) (anyTypeS []anyType)
+    func LiftanyType(anyTypes ...anyType) (anyTypeS []anyType)
 type anyTypeIs func(anyType) bool
 type anyTypeS []anyType
 type lookUpanyType struct{ ... }

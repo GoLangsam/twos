@@ -20,6 +20,7 @@ var NilTail = core.NilTail ...
 func FmapanyTypeRoC(f func(anyType) anyType, RoCs ...<-chan anyType) <-chan anyType
 func FmapanyTypes(f func(anyType) anyType, anyTypes ...anyType) (anyTypeS []anyType)
 func JoinanyTypeS(anyTypeSs ...[]anyType) (anyTypeS []anyType)
+func LiftanyType(anyTypes ...anyType) (anyTypeS []anyType)
 type Cardinality = core.Cardinality
 type Head = core.Head
 type ID = core.ID

@@ -11,6 +11,7 @@ func KindOfPair(a Pair) kind
 type Cardinality = cardinalNumber
     func LengthOfPair(a Pair) (length Cardinality)
 type Head func() Pair
+type HeadS []Head
 type ID = name
 type Index = ordinalNumber
     func At(i int) Index
@@ -26,4 +27,5 @@ type Tail func() (Head, Tail)
     func Only(iter Iterable, pairIs func(Pair) bool) Tail
     func Skip(iter Iterable, pairIs func(Pair) bool) Tail
     func X(factors ...Iterable) (tail Tail)
+type TailS []Tail
 type Type = reflect.Type

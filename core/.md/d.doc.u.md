@@ -18,6 +18,7 @@ func prod(aHead Head, aTail, bTail, reset Tail) (head Head, tail Tail)
 type Cardinality = cardinalNumber
     func LengthOfPair(a Pair) (length Cardinality)
 type Head func() Pair
+type HeadS []Head
 type ID = name
 type Index = ordinalNumber
     func At(i int) Index
@@ -35,6 +36,7 @@ type Tail func() (Head, Tail)
     func X(factors ...Iterable) (tail Tail)
     func mult(a, b Iterable) (tail Tail)
     func tailRecurse(pairs ...Pair) (tail Tail)
+type TailS []Tail
 type Type = reflect.Type
 type cardinalNumber uint64
 type kind struct{ ... }
