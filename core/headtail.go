@@ -44,7 +44,7 @@ func tailRecurse(pairs ...Pair) (tail Tail) {
 
 // ===========================================================================
 
-// Fmap establishes Head as a Functor.
+// Fmap establishes Head as Endo-Functor F<Head>.
 //   If a == nil this is returned directly - f is not evaluated for nil.
 //   If f == nil the identity function is applied.
 func (a Head) Fmap(f func(Head) Head) Head {
@@ -68,7 +68,7 @@ func (a Head) FmapPair(f func(Pair) Pair) Head {
 
 // ===========================================================================
 
-// Fmap establishes Tail as a Functor F<Tail>.
+// Fmap establishes Tail as Endo-Functor F<Tail>.
 //   If f == nil the identity functions is applied.
 func (a Tail) Fmap(f func(Tail) Tail) Tail {
 	if a == nil { return NilTail() }
