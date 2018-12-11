@@ -23,7 +23,7 @@ func fmapanyType() { // to fool genny
 //  anyTypeSs  - a variadic sequence of slices of anyType
 //  anyTypeRoC - a read-only channel of anyType
 
-// FmapanyTypes establishes []anyType as a Functor.
+// FmapanyTypes establishes []anyType as Endo-Functor.
 func FmapanyTypes(f func(anyType) anyType, anyTypes ...anyType) (anyTypeS []anyType) {
 	anyTypeS = make([]anyType, len(anyTypes))
 	for _, i := range anyTypes {
@@ -51,7 +51,7 @@ func LiftanyType(anyTypes ...anyType) (anyTypeS []anyType) {
 	return
 }
 
-// FmapanyTypeRoC establishes <-chan anyType as a Functor.
+// FmapanyTypeRoC establishes <-chan anyType as a Endo-Functor.
 //  Note: See github.com/GoLangsam/pipe/s for more useful patterns.
 func FmapanyTypeRoC(f func(anyType) anyType, RoCs ...<-chan anyType) <-chan anyType {
 	out := make(chan anyType)
