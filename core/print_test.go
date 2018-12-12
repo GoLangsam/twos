@@ -10,6 +10,32 @@ import (
 
 // ===========================================================================
 
+func ExampleID_Unit() {
+	var i ID
+	i = i.Unit()
+	fmt.Println(i)
+	// Output:
+	// <noName>
+}
+
+func ExampleIndex_Unit() {
+	var i Index
+	i = i.Unit()
+	fmt.Println(i)
+	// Output:
+	// 1
+}
+
+func ExampleCardinality_Unit() {
+	var c Cardinality
+	c = c.Unit()
+	fmt.Println(c)
+	// Output:
+	// 0
+}
+
+// ===========================================================================
+
 func ExampleKindOfPair() {
 
 	fmt.Println(KindOfPair(ID("TestName")))
