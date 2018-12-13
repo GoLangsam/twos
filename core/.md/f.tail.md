@@ -17,6 +17,7 @@ func (a Tail) Fmap(f func(Tail) Tail) Tail
 func (a Tail) FmapHead(f func(Head) Head) Tail
 func (a Tail) FmapPair(f func(Pair) Pair) Tail
 func (a Tail) Join(tails ...Iterable) Tail
+func (a Tail) Lift(as ...Tail) []Tail
 func (a Tail) Name() string
 func (a Tail) Of(index Index) Head
 func (a Tail) Only(pairIs func(Pair) bool) Tail

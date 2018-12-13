@@ -11,6 +11,7 @@ func (a Index) AsOffset() int
 func (a Index) Both() (aten, apep interface{})
 func (a Index) Cmp(b Index) (r int)
 func (a Index) Contains(item interface{}) (contains bool)
+func (a Index) Lift(as ...Index) []Index
 func (a Index) Name() string
 func (a Index) Of(index Index) Head
 func (a Index) Size() Cardinality

@@ -7,6 +7,7 @@ type name string
 func (a name) Both() (aten, apep interface{})
 func (a name) Cmp(b name) (r int)
 func (a name) Contains(item interface{}) (contains bool)
+func (a name) Lift(as ...name) []name
 func (a name) Name() string
 func (a name) Of(index Index) Head
 func (a name) Size() Cardinality
