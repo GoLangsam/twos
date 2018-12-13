@@ -16,7 +16,7 @@ func StringOfPair(a Pair) string
 func StringOfTwos(a, b interface{}) string
 func prod(aHead Head, aTail, bTail, reset Tail) (head Head, tail Tail)
 type Cardinality = cardinalNumber
-    func LengthOfPair(a Pair) (length Cardinality)
+    func SizeOfPair(a Pair) (size Cardinality)
 type Head func() Pair
 type HeadS []Head
 type ID = name

@@ -32,8 +32,8 @@ func ExamplePileOfanyType_interface() {
 	// lookerOfanyType is implemented by lookUpanyType
 	type lookerOfanyType interface {
 		Idx(item anyType) (idx Index, found bool) // returns the index of item iff applicable
-		Len() int                                 // current Length
-		Length() Cardinality                      // current Length
+		Len() int                                 // current length
+		Size() Cardinality                        // current Size
 		Random() <-chan anyType                   // a la Range, just: in random order
 		put(item anyType, idx Index)              // may panic("Overflow")
 	}
@@ -49,7 +49,7 @@ func ExamplePileOfanyType_interface() {
 		S() []anyType
 		Sort(less func(i, j int) bool) *PileOfanyType
 
-		lookerOfanyType // Pile: Length()
+		lookerOfanyType // Pile: Size()
 
 		add(item anyType) *PileOfanyType
 		append(items ...anyType) *PileOfanyType
@@ -66,15 +66,15 @@ func ExamplePileOfanyType_interface() {
 func ExampleNewPileOfanyType() {
 	name, data := testanyType()
 	pile := NewPileOfanyType(name, data...)
-	fmt.Println(pile.Length())
+	fmt.Println(pile.Size())
 	// Output:
 	// 5
 }
 
-func ExamplePileOfanyType_Length() {
+func ExamplePileOfanyType_Size() {
 	name, data := testanyType()
 	pile := NewPileOfanyType(name, data...)
-	fmt.Println(pile.Length())
+	fmt.Println(pile.Size())
 
 	var i Cardinality
 	for head, tail := pile.Tail()(); head != nil; head, tail = tail() {
@@ -85,7 +85,7 @@ func ExamplePileOfanyType_Length() {
 		// fmt.Println(IsAtomAten(head()), IsAtomApep(head()))
 	}
 
-	fmt.Println(pile.Length(), "==", i)
+	fmt.Println(pile.Size(), "==", i)
 
 	// Output:
 	// 5
@@ -95,7 +95,7 @@ func ExamplePileOfanyType_Length() {
 func ExamplePileOfanyType_Both() {
 	name, data := testanyType()
 	pile := NewPileOfanyType(name, data...)
-	fmt.Println(pile.Length())
+	fmt.Println(pile.Size())
 
 	aten, apep := pile.Both()
 
@@ -107,7 +107,7 @@ func ExamplePileOfanyType_Both() {
 func ExamplePileOfanyType_At() {
 	name, data := testanyType()
 	pile := NewPileOfanyType(name, data...)
-	fmt.Println(pile.Length())
+	fmt.Println(pile.Size())
 
 	var i Index
 	for i = 1; i < 4; i++ {
@@ -123,7 +123,7 @@ func ExamplePileOfanyType_At() {
 func ExamplePileOfanyType_Idx() {
 	name, data := testanyType()
 	pile := NewPileOfanyType(name, data...)
-	fmt.Println(pile.Length())
+	fmt.Println(pile.Size())
 
 	var i Index
 	for i = 1; i < 4; i++ {
@@ -143,14 +143,14 @@ func ExamplePileOfanyType_Idx() {
 func ExamplePileOfanyType_Range() {
 	name, data := testanyType()
 	pile := NewPileOfanyType(name, data...)
-	fmt.Println(pile.Length())
+	fmt.Println(pile.Size())
 
 	i := 0
 	for range pile.Range() {
 		i++
 	}
 
-	fmt.Println(pile.Length(), "==", i)
+	fmt.Println(pile.Size(), "==", i)
 	// Output:
 	// 5
 	// 5 == 5
@@ -159,14 +159,14 @@ func ExamplePileOfanyType_Range() {
 func ExamplePileOfanyType_Random() {
 	name, data := testanyType()
 	pile := NewPileOfanyType(name, data...)
-	fmt.Println(pile.Length())
+	fmt.Println(pile.Size())
 
 	i := 0
 	for range pile.Random() {
 		i++
 	}
 
-	fmt.Println(pile.Length(), "==", i)
+	fmt.Println(pile.Size(), "==", i)
 	// Output:
 	// 5
 	// 5 == 5

@@ -9,7 +9,7 @@ func StringOfPair(a Pair) string
 func StringOfTwos(a, b interface{}) string
 func KindOfPair(a Pair) kind
 type Cardinality = cardinalNumber
-    func LengthOfPair(a Pair) (length Cardinality)
+    func SizeOfPair(a Pair) (size Cardinality)
 type Head func() Pair
 type HeadS []Head
 type ID = name

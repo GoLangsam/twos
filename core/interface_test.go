@@ -52,9 +52,9 @@ func ExampleNamed_interface() {
 
 }
 
-// Pile holds Length items.
+// Pile holds Size items.
 type Pile interface {
-	Length() Cardinality
+	Size() Cardinality
 }
 
 func ExamplePile_interface() {

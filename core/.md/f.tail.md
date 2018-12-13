@@ -17,8 +17,6 @@ func (a Tail) Fmap(f func(Tail) Tail) Tail
 func (a Tail) FmapHead(f func(Head) Head) Tail
 func (a Tail) FmapPair(f func(Pair) Pair) Tail
 func (a Tail) Join(tails ...Iterable) Tail
-func (a Tail) Length() Cardinality
-func (a Tail) LengthRecursive() Cardinality
 func (a Tail) Name() string
 func (a Tail) Of(index Index) Head
 func (a Tail) Only(pairIs func(Pair) bool) Tail
@@ -31,6 +29,8 @@ func (a Tail) ReduceInt(f func(Pair, int) int, init int) int
 func (a Tail) ReducePair(f func(Pair, Pair) Pair, init Pair) Pair
 func (a Tail) ReduceString(f func(Pair, string) string, init string) string
 func (a Tail) Sew(needle func(Pair)) Tail
+func (a Tail) Size() Cardinality
+func (a Tail) SizeRecursive() Cardinality
 func (a Tail) Skip(pairIs func(Pair) bool) Tail
 func (a Tail) String() string
 func (a Tail) Tail() Tail

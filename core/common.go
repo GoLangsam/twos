@@ -132,45 +132,45 @@ func (a Tail) Tail() Tail                          { return a }
 
 // ===========================================================================
 
-// LengthOfPair reports the length (as a Cardinality).
-func LengthOfPair(a Pair ) (length Cardinality) {
-	// Pile holds Length items.
+// SizeOfPair reports the length (as a Cardinality).
+func SizeOfPair(a Pair ) (size Cardinality) {
+	// Pile holds Size items.
 	type Pile interface {
-		Length() Cardinality
+		Size() Cardinality
 	}
-	if p, ok := a.(Pile); ok { return p.Length() }
+	if p, ok := a.(Pile); ok { return p.Size() }
 	return
 }
 
-/* Length implements Pile by returning 0 */func (a nilPair)     Length() Cardinality { return 0 }
-/* Length implements Pile by returning 1 */func (a kind)        Length() Cardinality { return 1 }
-/* Length implements Pile by returning 1 */func (a name)        Length() Cardinality { return 1 }
+/* Size implements Pile by returning 0 */func (a nilPair)     Size() Cardinality { return 0 }
+/* Size implements Pile by returning 1 */func (a kind)        Size() Cardinality { return 1 }
+/* Size implements Pile by returning 1 */func (a name)        Size() Cardinality { return 1 }
 
-// Length implements Pile by returning 1.
-func (a Index)       Length() Cardinality { return 1 }
+// Size implements Pile by returning 1.
+func (a Index)       Size() Cardinality { return 1 }
 
-// Length implements Pile by returning 1
-func (a Cardinality) Length() Cardinality { return 1 }
+// Size implements Pile by returning 1
+func (a Cardinality) Size() Cardinality { return 1 }
 
-// Length implements Pile
+// Size implements Pile
 // by returning
 // the sum of the length of the two pairs.
-func (a nest) Length() Cardinality { return LengthOfPair(a.Aten) + LengthOfPair(a.Apep) }
+func (a nest) Size() Cardinality { return SizeOfPair(a.Aten) + SizeOfPair(a.Apep) }
 
-// Length implements Pile
+// Size implements Pile
 // by returning
 // the length of the pair a evaluates to
 // or zero for nil
-func (a Head) Length() Cardinality {
+func (a Head) Size() Cardinality {
 	if a == nil { return 0 }
 	if a() == nil { return 0 }
-	return LengthOfPair(a())
+	return SizeOfPair(a())
 }
 
-// Length implements Pile
+// Size implements Pile
 // by incrementing upon traversing a.
 //  Note: Complexity is O(n) due to complete traversal.
-func (a Tail) Length() Cardinality {
+func (a Tail) Size() Cardinality {
 	var i Cardinality
 	for head, tail := a(); head != nil; head, tail = tail() {
 		i++
@@ -178,20 +178,18 @@ func (a Tail) Length() Cardinality {
 	return i
 }
 
-// LengthRecursive is a recursive implementation to determine the Length
+// SizeRecursive is a recursive implementation to determine the Size
 // by returning zero for nil and 1 plus the recursive length of the tail a evaluates to.
 //  Note: Complexity is O(n) due to recursion.
-func (a Tail) LengthRecursive() Cardinality {
+func (a Tail) SizeRecursive() Cardinality {
 	head, tail := a()
 	if head == nil {
 		return 0
 	}
-	return 1 + tail.LengthRecursive()
+	return 1 + tail.SizeRecursive()
 }
 
 // ===========================================================================
-
-// Contains TODO
 
 // Contains implements Container
 // by telling whether the given item is of suitable type
@@ -275,3 +273,5 @@ func (a Tail)        Of(index Index) Head {
 	}
 	return nilHead
 }
+
+// ===========================================================================

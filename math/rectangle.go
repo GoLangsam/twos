@@ -16,6 +16,7 @@ type tailPair struct {
 }
 
 func (a tailPair) Both() (aten, apep interface{}) { return a.Cols, a.Rows }
+func (a tailPair) Size() Cardinality { return a.Cols.Size() * a.Rows.Size() }
 func (a tailPair) Tail() Tail { return X(a.Cols, a.Rows) }
 
 // ---------------------------------------------------------------------------
@@ -30,12 +31,13 @@ func ColsRows(name ID, cols, rows Iterable) *colsRows {
 }
 
 func (a colsRows) Both() (aten, apep interface{}) { return a.ID, a.tailPair }
+func (a colsRows) Size() Cardinality { return a.tailPair.Size() }
 
 // ===========================================================================
 
 type IndexedPile interface{
 //	Both() (aten, apep interface{})	// Pair
-	Length() Cardinality            // Pile
+	Size() Cardinality              // Pile
 	Tail() Tail                     // Iterable
 	Of(Index) Head                  // Indexed
 }
@@ -48,7 +50,7 @@ type pilePair struct {
 }
 
 func (a pilePair) Both() (aten, apep interface{}) { return a.Cols, a.Rows }
-func (a pilePair) Length() Cardinality { return a.Cols.Length() * a.Rows.Length() }
+func (a pilePair) Size() Cardinality { return a.Cols.Size() * a.Rows.Size() }
 func (a pilePair) Of(x, y Index) Head {
 	return func() Pair {
 		return Join(a.Cols.Of(x)(), a.Rows.Of(y)())
@@ -68,6 +70,6 @@ func Rectangle(name ID, cols, rows IndexedPile) *rectangle {
 }
 
 func (a rectangle) Both() (aten, apep interface{}) { return a.ID, a.pilePair }
-
+func (a rectangle) Size() Cardinality { return a.pilePair.Size() }
 
 // ===========================================================================

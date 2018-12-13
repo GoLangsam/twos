@@ -47,9 +47,9 @@ type Type = core.Type
 // Pair has two sides: Aten & Apep. It may be atomic, or composed, nested.
 type Pair = core.Pair
 
-// Pile holds Length items.
+// Pile holds Size items.
 type Pile interface {
-	Length() Cardinality
+	Size() Cardinality
 }
 
 // Named represents a named type.

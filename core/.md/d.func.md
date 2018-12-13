@@ -5,7 +5,7 @@ func StringOfOnes(a interface{}) string
 func StringOfPair(a Pair) string
 func StringOfTwos(a, b interface{}) string
 func KindOfPair(a Pair) kind
-    func LengthOfPair(a Pair) (length Cardinality)
+    func SizeOfPair(a Pair) (size Cardinality)
 type Head func() Pair
     func At(i int) Index
     func Apep(a Pair) Pair

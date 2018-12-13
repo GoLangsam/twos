@@ -22,11 +22,11 @@ func (a PileOfanyType) Duplicates() map[anyType]Index
 func (a PileOfanyType) Fmap(f func(anyType) anyType) *PileOfanyType
 func (a PileOfanyType) Idx(item anyType) (idx Index, found bool)
 func (a PileOfanyType) Len() int
-func (a PileOfanyType) Length() Cardinality
 func (a PileOfanyType) Of(idx Index) Head
 func (a PileOfanyType) Random() <-chan anyType
 func (a PileOfanyType) Range() <-chan anyType
 func (a PileOfanyType) S() []anyType
+func (a PileOfanyType) Size() Cardinality
 func (a PileOfanyType) Sort(less func(i, j int) bool) *PileOfanyType
 func (a PileOfanyType) String() string
 func (a PileOfanyType) Tail() Tail

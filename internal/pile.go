@@ -29,7 +29,7 @@ type lookUpanyType struct{ look map[anyType]Index }
 func (a lookUpanyType) Idx(item anyType) (idx Index, found bool) { idx, found = a.look[item]; return }
 func (a *lookUpanyType) put(item anyType, idx Index)             { a.look[item] = idx }
 func (a lookUpanyType) Len() int                                 { return len(a.look) }
-func (a lookUpanyType) Length() Cardinality                      { return Cardinality(len(a.look)) }
+func (a lookUpanyType) Size() Cardinality                        { return Cardinality(len(a.look)) }
 
 // Random returns a channel to range over.
 func (a lookUpanyType) Random() <-chan anyType {
@@ -113,18 +113,18 @@ func (a anyTypeS) String() string {
 // Len reports the length.
 func (a anyTypeS) Len() int { return len(a) }
 
-// Length implements Pile by returning the length.
-func (a anyTypeS) Length() Cardinality { return Cardinality(len(a)) }
+// Size implements Pile by returning the length.
+func (a anyTypeS) Size() Cardinality { return Cardinality(len(a)) }
 
-// Length implements Pile by returning 1.
-func (a onesOfanyType) Length() Cardinality { return 1 }
+// Size implements Pile by returning 1.
+func (a onesOfanyType) Size() Cardinality { return 1 }
 
 // Len reports the length.
 func (a PileOfanyType) Len() int { return a.anyTypeS.Len() }
 // Note: Inherited both from anyTypeS and from lookUpanyType
 
-// Length implements Pile by returning the length of the Pile.
-func (a PileOfanyType) Length() Cardinality { return a.lookUpanyType.Length() }
+// Size implements Pile by returning the length of the Pile.
+func (a PileOfanyType) Size() Cardinality { return a.lookUpanyType.Size() }
 
 // Of
 func (a onesOfanyType) Of(index Index) Head {
@@ -158,8 +158,8 @@ func (a PileOfanyType) head(idx int) Head {
 	}
 
 	return func() Pair {
-		head, _ := NilTail()()
-		return head()
+		nilHead, _ := NilTail()()
+		return nilHead()
 	}
 }
 
