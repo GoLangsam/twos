@@ -6,9 +6,14 @@
 
 - see also ## Observations
 
+- Head Tail String() gave recoursive trouble
+
+- SizeOfPair is Zero iff it's not a Pile. This seems wrong!
+- SizeOfPile (new) should do all the inspection!
+
 ## Extend
 - func Of(indexes []Index, indices ...Indexed} Head
-- Contains for all basic types
+- test Contains for all basic types
 - Make Tree correct: Node(interface{}
 - Node.Tail must walk the tree!
 - C, I, Names as Tail
