@@ -19,9 +19,15 @@ type permuter struct {
 }
 
 // Permuter provides an (opaque and lazy) iterator.
+//
 // Its Next() method succesively produces
 // a HeadS thru all permutations of the items
 // reachable thru the given TailS.
+//
+// Its Tail() method implements Iterator and allows composition,
+// but may need a type assertion upon evaluation of some head.
+//
+// Along the way, Next() may be mixed with evaluation of some tail().
 func Permuter(tails TailS) *permuter {
 	many := len(tails)
 	if many < 1 {
@@ -45,12 +51,33 @@ func Permuter(tails TailS) *permuter {
 	return a.upto(a.many)
 }
 
-// Next iterates: returns another HeadS and reports iff there is such.
-func (a *permuter) Next() (HeadS, bool) {
-	if len(a.HeadS) < 1 {
-		return nil, false
-	}
+// Tail implements Iterable
+// by returning all permutations sucessively.
+func (a *permuter) Tail() Tail {
+	if len(a.HeadS) < 1 { return NilTail() }
+	return a.tail()
+}
 
+func (a *permuter) tail() Tail {
+	return func() (head Head, tail Tail) {
+		if len(a.HeadS) < 1 { return NilTail()() }
+		return a.head(), a.tail()
+	}
+}
+
+func (a *permuter) head() Head {
+	return func() Pair {
+		if headS, ok := a.Next(); ok {
+			return headS
+		}
+		return nil
+	}
+}
+
+// Next allows to iterate thru all permutations
+// until nil, false.
+func (a *permuter) Next() (HeadS, bool) {
+	if len(a.HeadS) < 1 { return nil, false }
 	headS := HeadS{}
 	for _, head := range a.HeadS {
 		headS = append(headS, head)
@@ -58,7 +85,6 @@ func (a *permuter) Next() (HeadS, bool) {
 	// Note: Intentionally use of copy is avoided: it would need to specify the underlying type.
 
 	a.next(a.curr)
-
 	return headS, true
 }
 
@@ -91,4 +117,15 @@ func (a *permuter) next(here int) *permuter {
 		}
 	}
 	return a
+}
+
+// Length implements Pile
+// by returning
+// the product of the length of the Tails.
+func (a *permuter) Length() Cardinality {
+	var l Cardinality = 1
+	for _, t := range a.reset {
+		l = l * t.Size()
+	}
+	return l
 }
