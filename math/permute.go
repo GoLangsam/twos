@@ -14,7 +14,6 @@ type permuter struct {
 	reset TailS // for reset
 	TailS       // where we are
 	HeadS       // what we have
-	many  int   // how many tails
 	curr  int   // where to progress
 }
 
@@ -29,16 +28,10 @@ type permuter struct {
 //
 // Along the way, Next() may be mixed with evaluation of some tail().
 func Permuter(tails TailS) *permuter {
-	many := len(tails)
-	if many < 1 {
-		return nil
-	}
-
 	a := &permuter{
 		tails,
 		TailS{},
 		HeadS{},
-		many,
 		0,
 	}
 
@@ -48,36 +41,32 @@ func Permuter(tails TailS) *permuter {
 		a.TailS = append(a.TailS, tail)
 	}
 
-	return a.upto(a.many)
+	return a.upto(len(a.reset))
 }
 
 // Tail implements Iterable
 // by returning all permutations sucessively.
 func (a *permuter) Tail() Tail {
-	if len(a.HeadS) < 1 { return NilTail() }
-	return a.tail()
-}
-
-func (a *permuter) tail() Tail {
 	return func() (head Head, tail Tail) {
-		if len(a.HeadS) < 1 { return NilTail()() }
-		return a.head(), a.tail()
-	}
-}
-
-func (a *permuter) head() Head {
-	return func() Pair {
-		if headS, ok := a.Next(); ok {
-			return headS
+		if len(a.HeadS) < 1 {
+			return NilTail()()
 		}
-		return nil
+
+		return func() Pair {
+			if headS, ok := a.Next(); ok {
+				return headS
+			}
+			return nil
+		}, a.Tail()
 	}
 }
 
 // Next allows to iterate thru all permutations
 // until nil, false.
 func (a *permuter) Next() (HeadS, bool) {
-	if len(a.HeadS) < 1 { return nil, false }
+	if len(a.HeadS) < 1 {
+		return nil, false
+	}
 	headS := HeadS{}
 	for _, head := range a.HeadS {
 		headS = append(headS, head)
@@ -90,10 +79,13 @@ func (a *permuter) Next() (HeadS, bool) {
 
 // Upto resets tails up to (but not including) given offset.
 func (a *permuter) upto(upto int) *permuter {
-	for curr := 0; curr < upto && curr < len(a.HeadS); curr++ {
-		a.HeadS[curr], a.TailS[curr] = a.reset[curr].Tail()() // reset all lower
+	if size := len(a.HeadS); size < upto {
+		upto = size // upto = min(size, upto)
 	}
-	a.curr = 0
+	a.curr = 0                           // reset position
+	for curr := 0; curr < upto; curr++ { // reset all lower
+		a.HeadS[curr], a.TailS[curr] = a.reset[curr].Tail()()
+	}
 	return a
 }
 
@@ -101,31 +93,36 @@ func (a *permuter) upto(upto int) *permuter {
 // On overflow, the output buffer is shrunk to zero size.
 func (a *permuter) next(here int) *permuter {
 	if here < len(a.HeadS) {
-
 		a.HeadS[here], a.TailS[here] = a.TailS[here].Tail()()
 		if a.HeadS[here] == nil {
 			here++
-			if here >= a.many { // too many: Overflow!
-				a.HeadS = HeadS{} // clear output buffer
-				return a
-			}
-			a.curr = 0                           // reset position
-			for curr := 0; curr < here; curr++ { // reset all lower
-				a.HeadS[curr], a.TailS[curr] = a.reset[curr].Tail()()
-			}
-			return a.next(here) // advance first - recurse
+			return a.upto(here).next(here) // advance first - tail recurse
 		}
-	}
+	} else {
+		a.HeadS = HeadS{}
+	} // clear output buffer
 	return a
+}
+
+// ===========================================================================
+// common
+
+// Len reports the product of the length of the Tails.
+func (a *permuter) Len() int {
+	var size = 1
+	for _, t := range a.reset {
+		size = size * int(t.Size())
+	}
+	return size
 }
 
 // Size implements Pile
 // by returning
 // the product of the length of the Tails.
 func (a *permuter) Size() Cardinality {
-	var l Cardinality = 1
+	var size Cardinality = 1
 	for _, t := range a.reset {
-		l = l * t.Size()
+		size = size * t.Size()
 	}
-	return l
+	return size
 }
