@@ -52,12 +52,12 @@ func (a *permuter) Tail() Tail {
 			return NilTail()()
 		}
 
-		return func() Pair {
+		return func() Pair { // head
 			if headS, ok := a.Next(); ok {
 				return headS
 			}
 			return nil
-		}, a.Tail()
+		}, a.Tail() // tail - tail recursiv
 	}
 }
 
@@ -73,7 +73,7 @@ func (a *permuter) Next() (HeadS, bool) {
 	} // copy(headS, a.HeadS)
 	// Note: Intentionally use of copy is avoided: it would need to specify the underlying type.
 
-	a.next(a.curr)
+	a = a.next(a.curr)
 	return headS, true
 }
 
