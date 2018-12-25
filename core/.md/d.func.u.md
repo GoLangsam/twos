@@ -6,9 +6,11 @@ func StringOfOnes(a interface{}) string
 func StringOfPair(a Pair) string
 func StringOfTwos(a, b interface{}) string
 func prod(aHead Head, aTail, bTail, reset Tail) (head Head, tail Tail)
+    func Cardinal(a int) Cardinality
     func SizeOfPair(a Pair) (size Cardinality)
 type Head func() Pair
     func At(i int) Index
+    func Ordinal(a int) Index
     func Apep(a Pair) Pair
     func Aten(a Pair) Pair
     func Join(a, b Pair) Pair

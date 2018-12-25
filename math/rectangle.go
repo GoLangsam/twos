@@ -16,7 +16,10 @@ type tailPair struct {
 }
 
 func (a tailPair) Both() (aten, apep interface{}) { return a.Cols, a.Rows }
-func (a tailPair) Size() Cardinality { return a.Cols.Size() * a.Rows.Size() }
+func (a tailPair) Size() Cardinality {
+	size := Cardinal(0)
+	return size.Mul(a.Cols.Size(), a.Rows.Size())
+}
 func (a tailPair) Tail() Tail { return X(a.Cols, a.Rows) }
 
 // ---------------------------------------------------------------------------
@@ -50,7 +53,11 @@ type pilePair struct {
 }
 
 func (a pilePair) Both() (aten, apep interface{}) { return a.Cols, a.Rows }
-func (a pilePair) Size() Cardinality { return a.Cols.Size() * a.Rows.Size() }
+func (a pilePair) Size() Cardinality {
+	size := Cardinal(0)
+	return size.Mul(a.Cols.Size(), a.Rows.Size())
+}
+
 func (a pilePair) Of(x, y Index) Head {
 	return func() Pair {
 		return Join(a.Cols.Of(x)(), a.Rows.Of(y)())

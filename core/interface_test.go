@@ -7,8 +7,8 @@ package core
 func ExamplePair_interface() {
 
 	var _ Pair = ID("Test")
-	var _ Pair = Index(4711)
-	var _ Pair = Cardinality(4711)
+	var _ Pair = Ordinal(4711)
+	var _ Pair = Cardinal(4711)
 
 	var _, _ Pair = nilPair{}, &nilPair{}
 	var _, _ Pair = nest{}, &nest{}
@@ -22,8 +22,8 @@ func ExamplePair_interface() {
 func ExampleIterable_interface() {
 
 	var _ Iterable = ID("Test")
-	var _ Iterable = Index(4711)
-	var _ Iterable = Cardinality(4711)
+	var _ Iterable = Ordinal(4711)
+	var _ Iterable = Cardinal(4711)
 
 	var _, _ Iterable = nilPair{}, &nilPair{}
 	var _, _ Iterable = nest{}, &nest{}
@@ -40,8 +40,8 @@ type Named interface{ Name() string }
 func ExampleNamed_interface() {
 
 	var _ Named = ID("Test")
-	var _ Named = Index(4711)
-	var _ Named = Cardinality(4711)
+	var _ Named = Ordinal(4711)
+	var _ Named = Cardinal(4711)
 
 	var _, _ Named = nilPair{}, &nilPair{}
 	var _, _ Named = nest{}, &nest{}
@@ -60,8 +60,8 @@ type Pile interface {
 func ExamplePile_interface() {
 
 	var _ Pile = ID("Test")
-	var _ Pile = Index(4711)
-	var _ Pile = Cardinality(4711)
+	var _ Pile = Ordinal(4711)
+	var _ Pile = Cardinal(4711)
 
 	var _, _ Pile = nilPair{}, &nilPair{}
 	var _, _ Pile = nest{}, &nest{}
@@ -80,8 +80,8 @@ type Indexed interface {
 func ExampleIndexed_interface() {
 
 	var _ Indexed = ID("Test")
-	var _ Indexed = Index(4711)
-	var _ Indexed = Cardinality(4711)
+	var _ Indexed = Ordinal(4711)
+	var _ Indexed = Cardinal(4711)
 
 	var _, _ Indexed = nilPair{}, &nilPair{}
 	var _, _ Indexed = nest{}, &nest{}
@@ -99,8 +99,8 @@ type Container interface {
 func ExampleContainer_interface() {
 
 	var _ Container = ID("Test")
-	var _ Container = Index(4711)
-	var _ Container = Cardinality(4711)
+	var _ Container = Ordinal(4711)
+	var _ Container = Cardinal(4711)
 
 	var _ Container = NilTail()
 	var _, _ Container = NilTail()()

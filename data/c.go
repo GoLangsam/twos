@@ -16,7 +16,7 @@ func C(N int) Cardinalities {
 	go func(Cs chan<- Cardinality, N int) {
 		defer close(Cs)
 		for c := 0; c < N; c++ {
-			Cs <- Cardinality(c)
+			Cs <- Cardinal(c)
 		}
 	}(Cs, N)
 	return Cs

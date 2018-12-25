@@ -12,7 +12,7 @@ func testanyType() (string, []anyType) {
 	name := "any"
 	data := []anyType{
 		int(4),
-		Cardinality(7),
+		Cardinal(7),
 		time.Monday,
 		time.Monday,
 		"Thursday",

@@ -39,8 +39,8 @@ func ExampleCardinality_Unit() {
 func ExampleKindOfPair() {
 
 	fmt.Println(KindOfPair(ID("TestName")))
-	fmt.Println(KindOfPair(Index(1)))
-	fmt.Println(KindOfPair(Cardinality(0)))
+	fmt.Println(KindOfPair(Index{}))
+	fmt.Println(KindOfPair(Cardinality{}))
 	// Output:
 	// { name | core.name }
 	// { ordinalNumber | core.ordinalNumber }
@@ -80,8 +80,8 @@ func ExampleStringOfPair_nil() {
 
 	// Output:
 	// name: <noName> == <noName>
-	// indx: 0 == 0
-	// card: 0 == 0
+	// indx: <nil> == <nil>
+	// card: <nil> == <nil>
 	// kind: { <noName> | <nil> } == { <noName> | <nil> }
 	// head: (<nilHead>) == (<nilHead>)
 	// tail: [<nilTail>] == [<nilTail>]

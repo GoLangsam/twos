@@ -1,6 +1,8 @@
 package pile // import "github.com/GoLangsam/twos/pile"
 
 var TypeOf = core.TypeOf ...
+var Cardinal = core.Cardinal
+var Ordinal = core.Ordinal
 func pileCardinality()
 func pileID()
 func pileIndex()

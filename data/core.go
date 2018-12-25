@@ -16,6 +16,9 @@ type ID = core.ID
 
 // ===========================================================================
 
+// Ordinal returns an Index representing the number a.
+var Ordinal = core.Ordinal
+
 // Index represents an ordinal number and may be used
 // to enumerate a collention or access some item.
 // Intentionally, the first item has Index = 1.
@@ -29,6 +32,9 @@ type Index = core.Index
 type Indices <-chan Index
 
 // ===========================================================================
+
+// Cardinal returns a Cardinality representing the number a.
+var Cardinal = core.Cardinal
 
 // Cardinality represents a cardinal number such as the #-of items in a Pile.
 type Cardinality = core.Cardinality

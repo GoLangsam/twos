@@ -43,7 +43,7 @@ func ExamplePileOfanyType_interface() {
 		pairOfanyType
 
 		At(Index) anyType
-		Duplicates() map[anyType]Index
+		Duplicates() map[anyType]Cardinality
 		Fmap(f func(anyType) anyType) *PileOfanyType
 		Range() <-chan anyType
 		S() []anyType
@@ -76,9 +76,9 @@ func ExamplePileOfanyType_Size() {
 	pile := NewPileOfanyType(name, data...)
 	fmt.Println(pile.Size())
 
-	var i Cardinality
+	i, step := Cardinal(0), Cardinal(1)
 	for head, tail := pile.Tail()(); head != nil; head, tail = tail() {
-		i++
+		i = i.Add(i, step)
 		aten, apep := head().Both()
 		_, _ = aten, apep
 		// fmt.Println(aten) // TODO: not easy to print this generic
@@ -109,11 +109,10 @@ func ExamplePileOfanyType_At() {
 	pile := NewPileOfanyType(name, data...)
 	fmt.Println(pile.Size())
 
-	var i Index
-	for i = 1; i < 4; i++ {
-		item := data[int(i)-1]
-		if pile.At(i) != item {
-			fmt.Println("At failed", i, pile.At(i), item)
+	for i := 1; i < 4; i++ {
+		item := data[i-1]
+		if pile.At(Ordinal(i)) != item {
+			fmt.Println("At failed", i, pile.At(Ordinal(i)), item)
 		}
 	}
 	// Output:
@@ -125,14 +124,13 @@ func ExamplePileOfanyType_Idx() {
 	pile := NewPileOfanyType(name, data...)
 	fmt.Println(pile.Size())
 
-	var i Index
-	for i = 1; i < 4; i++ {
-		item := data[int(i)-1]
+	for i := 1; i < 4; i++ {
+		item := data[i-1]
 
 		idx, ok := pile.Idx(item)
 		if !ok {
 			fmt.Println("Idx failed to find", item, "at index", i)
-		} else if idx != i {
+		} else if idx.Cmp(Ordinal(i)) != 0 {
 			fmt.Println("Idx returned", idx, "instead of", i)
 		}
 	}

@@ -7,6 +7,9 @@ type Index = ordinalNumber
 
 
 func At(i int) Index
+func Ordinal(a int) Index
+func (a Index) Add(x, y Index) Index
+func (a Index) AsInt() int
 func (a Index) AsOffset() int
 func (a Index) Both() (aten, apep interface{})
 func (a Index) Cmp(b Index) (r int)

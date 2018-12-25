@@ -50,9 +50,9 @@ func (a HeadS) Len() int { return len(a) }
 func (a TailS) Len() int { return len(a) }
 
 // Size implements Pile by returning the length.
-func (a HeadS) Size() Cardinality { return Cardinality(len(a)) }
+func (a HeadS) Size() Cardinality { return Cardinal(len(a)) }
 
 // Size implements Pile by returning the length.
-func (a TailS) Size() Cardinality { return Cardinality(len(a)) }
+func (a TailS) Size() Cardinality { return Cardinal(len(a)) }
 
 // ===========================================================================

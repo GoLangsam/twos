@@ -16,12 +16,14 @@ func StringOfPair(a Pair) string
 func StringOfTwos(a, b interface{}) string
 func prod(aHead Head, aTail, bTail, reset Tail) (head Head, tail Tail)
 type Cardinality = cardinalNumber
+    func Cardinal(a int) Cardinality
     func SizeOfPair(a Pair) (size Cardinality)
 type Head func() Pair
 type HeadS []Head
 type ID = name
 type Index = ordinalNumber
     func At(i int) Index
+    func Ordinal(a int) Index
 type Iterable interface{ ... }
 type Pair interface{ ... }
     func Apep(a Pair) Pair
@@ -38,11 +40,11 @@ type Tail func() (Head, Tail)
     func tailRecurse(pairs ...Pair) (tail Tail)
 type TailS []Tail
 type Type = reflect.Type
-type cardinalNumber uint64
+type cardinalNumber struct{ ... }
 type kind struct{ ... }
     func KindOfPair(a Pair) kind
 type name string
 type nest struct{ ... }
 type nilPair struct{}
-type ordinalNumber uint64
+type ordinalNumber struct{ ... }
 type stringer interface{ ... }

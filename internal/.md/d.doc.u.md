@@ -17,6 +17,8 @@ provide similar data, appropriate for the target type, if pile_test.go is
 generated into such package.
 
 var NilTail = core.NilTail ...
+var Cardinal = core.Cardinal
+var Ordinal = core.Ordinal
 var isanyTypeFalse = func(a anyType) bool { ... }
 var isanyTypeTrue = func(a anyType) bool { ... }
 func FmapanyTypeRoC(f func(anyType) anyType, RoCs ...<-chan anyType) <-chan anyType

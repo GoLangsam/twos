@@ -9,12 +9,14 @@ func StringOfPair(a Pair) string
 func StringOfTwos(a, b interface{}) string
 func KindOfPair(a Pair) kind
 type Cardinality = cardinalNumber
+    func Cardinal(a int) Cardinality
     func SizeOfPair(a Pair) (size Cardinality)
 type Head func() Pair
 type HeadS []Head
 type ID = name
 type Index = ordinalNumber
     func At(i int) Index
+    func Ordinal(a int) Index
 type Iterable interface{ ... }
 type Pair interface{ ... }
     func Apep(a Pair) Pair

@@ -21,11 +21,11 @@ var (
 	nilHead Head = func() Pair { return nilPair{} }
 	nilTail Tail = func() (Head, Tail) { return nil, func() (Head, Tail) {return nil, nil} }
 
-	theKindOfNest = kind{name(TypeOf(nest{}).Name()), TypeOf(nest{})}
-	theKindOfKind = kind{name(TypeOf(kind{}).Name()), TypeOf(kind{})}
-	theKindOfName = kind{name(TypeOf(name("")).Name()), TypeOf(name(""))}
-	theKindOfIndex = kind{name(TypeOf(Index(1)).Name()), TypeOf(Index(1))}
-	theKindOfCardinality = kind{name(TypeOf(Cardinality(0)).Name()), TypeOf(Cardinality(0))}
+	theKindOfNest        = kind{name(TypeOf(nest{}).Name()),      TypeOf(nest{})}
+	theKindOfKind        = kind{name(TypeOf(kind{}).Name()),      TypeOf(kind{})}
+	theKindOfName        = kind{name(TypeOf(name("")).Name()),    TypeOf(name(""))}
+	theKindOfIndex       = kind{name(TypeOf(Ordinal(1)).Name()),  TypeOf(Ordinal(1))}
+	theKindOfCardinality = kind{name(TypeOf(Cardinal(0)).Name()), TypeOf(Cardinal(0))}
 )
 
 // KindOfPair returns the kind of a Pair,
@@ -142,28 +142,32 @@ func SizeOfPair(a Pair ) (size Cardinality) {
 	return
 }
 
-/* Size implements Pile by returning 0 */func (a nilPair)     Size() Cardinality { return 0 }
-/* Size implements Pile by returning 1 */func (a kind)        Size() Cardinality { return 1 }
-/* Size implements Pile by returning 1 */func (a name)        Size() Cardinality { return 1 }
+/* Size implements Pile by returning 0 */func (a nilPair)     Size() Cardinality { return Cardinal(0) }
+/* Size implements Pile by returning 1 */func (a kind)        Size() Cardinality { return Cardinal(1) }
+/* Size implements Pile by returning 1 */func (a name)        Size() Cardinality { return Cardinal(1) }
 
 // Size implements Pile by returning 1.
-func (a Index)       Size() Cardinality { return 1 }
+func (a Index)       Size() Cardinality { return Cardinal(1) }
 
 // Size implements Pile by returning 1
-func (a Cardinality) Size() Cardinality { return 1 }
+func (a Cardinality) Size() Cardinality { return Cardinal(1) }
 
 // Size implements Pile
 // by returning
 // the sum of the length of the two pairs.
-func (a nest) Size() Cardinality { return SizeOfPair(a.Aten) + SizeOfPair(a.Apep) }
+func (a nest) Size() Cardinality {
+	size := Cardinal(0)
+	size = size.Add(SizeOfPair(a.Aten), SizeOfPair(a.Apep))
+	return size
+}
 
 // Size implements Pile
 // by returning
 // the length of the pair a evaluates to
 // or zero for nil
 func (a Head) Size() Cardinality {
-	if a == nil { return 0 }
-	if a() == nil { return 0 }
+	if a == nil { return Cardinal(0) }
+	if a() == nil { return Cardinal(1) }
 	return SizeOfPair(a())
 }
 
@@ -171,11 +175,11 @@ func (a Head) Size() Cardinality {
 // by incrementing upon traversing a.
 //  Note: Complexity is O(n) due to complete traversal.
 func (a Tail) Size() Cardinality {
-	var i Cardinality
+	size, step := Cardinal(0), Cardinal(1)
 	for head, tail := a(); head != nil; head, tail = tail() {
-		i++
+		size = size.Add(size, step)
 	}
-	return i
+	return size
 }
 
 // SizeRecursive is a recursive implementation to determine the Size
@@ -183,10 +187,12 @@ func (a Tail) Size() Cardinality {
 //  Note: Complexity is O(n) due to recursion.
 func (a Tail) SizeRecursive() Cardinality {
 	head, tail := a()
+	size, step := Cardinal(0), Cardinal(1)
 	if head == nil {
-		return 0
+		return size
 	}
-	return 1 + tail.SizeRecursive()
+	size = size.Add(step, tail.SizeRecursive())
+	return size
 }
 
 // ===========================================================================
@@ -252,24 +258,24 @@ func (a Tail) Contains(item interface{}) (contains bool) {
 // Of returns a nilHead.
 func (a nilPair)     Of(index Index) Head { return nilHead }
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a kind)        Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+func (a kind)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 {return func() Pair {return a}}; return nilHead }
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a name)        Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+func (a name)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 {return func() Pair {return a}}; return nilHead }
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a Index)       Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+func (a Index)       Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 {return func() Pair {return a}}; return nilHead }
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a Cardinality) Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+func (a Cardinality) Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 {return func() Pair {return a}}; return nilHead }
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a nest)        Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+func (a nest)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 {return func() Pair {return a}}; return nilHead }
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a Head)        Of(index Index) Head { if index == 1 {return func() Pair {return a}}; return nilHead }
+func (a Head)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 {return func() Pair {return a}}; return nilHead }
 
 // Of returns a Head for the item of position index, of nilHead iff the index is out of bounds.
 func (a Tail)        Of(index Index) Head {
-	var current Index
-	for head, tail := a(); head != nil && current < index; head, tail = tail() {
-		current++
-		if index == current {return func() Pair {return head}}
+	current, step := Ordinal(0), Ordinal(1)
+	for head, tail := a(); head != nil && current.Cmp(index) < 0; head, tail = tail() {
+		current = current.Add(current, step)
+		if current.Cmp(index) == 0 {return func() Pair {return head}}
 	}
 	return nilHead
 }

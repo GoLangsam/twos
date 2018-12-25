@@ -16,7 +16,7 @@ func I(N int) Indices {
 	go func(Is chan<- Index, N int) {
 		defer close(Is)
 		for i := 1; i < N+1; i++ {
-			Is <- Index(i)
+			Is <- Ordinal(i)
 		}
 	}(Is, N)
 	return Is

@@ -109,20 +109,16 @@ func (a *permuter) next(here int) *permuter {
 
 // Len reports the product of the length of the Tails.
 func (a *permuter) Len() int {
-	var size = 1
-	for _, t := range a.reset {
-		size = size * int(t.Size())
-	}
-	return size
+	return a.Size().AsInt()
 }
 
 // Size implements Pile
 // by returning
 // the product of the length of the Tails.
 func (a *permuter) Size() Cardinality {
-	var size Cardinality = 1
+	size := Cardinal(1)
 	for _, t := range a.reset {
-		size = size * t.Size()
+		size = size.Mul(size, t.Size()) 
 	}
 	return size
 }

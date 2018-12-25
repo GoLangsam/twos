@@ -5,7 +5,7 @@ type PileOfPile struct {
 	PileS
 
 	lookUpPile
-	duplicates lookUpPile
+	duplicates map[Pile]Cardinality
 }
     PileOfPile holds different items of some kind, accessible in order of
     arrival and by index as well as via reverse look-up: Idx(item) returns the
@@ -18,7 +18,7 @@ func NewPileOfPile(name string, items ...Pile) *PileOfPile
 func (a PileOfPile) At(idx Index) Pile
 func (a PileOfPile) Both() (aten, apep interface{})
 func (a PileOfPile) Contains(item interface{}) (contains bool)
-func (a PileOfPile) Duplicates() map[Pile]Index
+func (a PileOfPile) Duplicates() map[Pile]Cardinality
 func (a PileOfPile) Fmap(f func(Pile) Pile) *PileOfPile
 func (a PileOfPile) Idx(item Pile) (idx Index, found bool)
 func (a PileOfPile) Len() int

@@ -30,9 +30,9 @@ func (a name) String() string {
 	return StringOfOnes(string(a))
 }
 
-/* String implements fmt.Stringer */ func (a Index) String() string { return StringOfOnes(int(a)) }
+/* String implements fmt.Stringer */ func (a Index) String() string { return StringOfOnes(a.Int.String()) }
 
-/* String implements fmt.Stringer */ func (a Cardinality) String() string { return StringOfOnes(int(a)) }
+/* String implements fmt.Stringer */ func (a Cardinality) String() string { return StringOfOnes(a.Int.String()) }
 
 /* String implements fmt.Stringer */ func (a nest) String() string { return StringOfTwos(StringOfPair(a.Aten), StringOfPair(a.Apep)) }
 

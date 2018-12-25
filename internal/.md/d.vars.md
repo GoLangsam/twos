@@ -1,1 +1,3 @@
 var NilTail = core.NilTail ...
+var Cardinal = core.Cardinal
+var Ordinal = core.Ordinal

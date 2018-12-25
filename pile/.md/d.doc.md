@@ -1,6 +1,8 @@
 package pile // import "github.com/GoLangsam/twos/pile"
 
 var TypeOf = core.TypeOf ...
+var Cardinal = core.Cardinal
+var Ordinal = core.Ordinal
 type Cardinality = core.Cardinality
 type CardinalityS []Cardinality
 type Container interface{ ... }

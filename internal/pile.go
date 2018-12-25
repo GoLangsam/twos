@@ -29,7 +29,7 @@ type lookUpanyType struct{ look map[anyType]Index }
 func (a lookUpanyType) Idx(item anyType) (idx Index, found bool) { idx, found = a.look[item]; return }
 func (a *lookUpanyType) put(item anyType, idx Index)             { a.look[item] = idx }
 func (a lookUpanyType) Len() int                                 { return len(a.look) }
-func (a lookUpanyType) Size() Cardinality                        { return Cardinality(len(a.look)) }
+func (a lookUpanyType) Size() Cardinality                        { return Cardinal(len(a.look)) }
 
 // Random returns a channel to range over.
 func (a lookUpanyType) Random() <-chan anyType {
@@ -58,7 +58,7 @@ type PileOfanyType struct {
 	anyTypeS
 
 	lookUpanyType
-	duplicates lookUpanyType
+	duplicates map[anyType]Cardinality
 }
 
 // NewPileOfanyType returns a named Pile of items.
@@ -70,7 +70,7 @@ func NewPileOfanyType(name string, items ...anyType) *PileOfanyType {
 		ID(name),
 		make([]anyType, 0, soManyItems),
 		lookUpanyType{make(map[anyType]Index, soManyItems)},
-		lookUpanyType{make(map[anyType]Index)},
+		make(map[anyType]Cardinality),
 	}
 	pile = pile.append(items...)
 	return pile
@@ -114,10 +114,10 @@ func (a anyTypeS) String() string {
 func (a anyTypeS) Len() int { return len(a) }
 
 // Size implements Pile by returning the length.
-func (a anyTypeS) Size() Cardinality { return Cardinality(len(a)) }
+func (a anyTypeS) Size() Cardinality { return Cardinal(len(a)) }
 
 // Size implements Pile by returning 1.
-func (a onesOfanyType) Size() Cardinality { return 1 }
+func (a onesOfanyType) Size() Cardinality { return Cardinal(1) }
 
 // Len reports the length.
 func (a PileOfanyType) Len() int { return a.anyTypeS.Len() }
@@ -128,7 +128,8 @@ func (a PileOfanyType) Size() Cardinality { return a.lookUpanyType.Size() }
 
 // Of
 func (a onesOfanyType) Of(index Index) Head {
-	if index == 1 {
+	one := Ordinal(1)
+	if index.Cmp(one) == 0 {
 		return func() Pair { return a }
 	}
 	nilHead, _ := NilTail()()
@@ -216,10 +217,10 @@ func (a PileOfanyType) Of(idx Index) Head { return a.head(idx.AsOffset()) }
 func (a PileOfanyType) S() []anyType { return a.anyTypeS }
 
 // Duplicates returns a map of the duplicate items.
-// The Index tells how often the item was received as a duplicate.
+// The Cardinality tells how often the item was received as a duplicate.
 //   Hint: The len(of this map) tells how manyType different item values were seen more than once.
-//   Note: Clients should check and consider anyType non-zero result as an error.
-func (a PileOfanyType) Duplicates() map[anyType]Index { return a.duplicates.look }
+//   Note: Clients should check and consider any non-zero result as an error.
+func (a PileOfanyType) Duplicates() map[anyType]Cardinality { return a.duplicates }
 
 // append
 func (a *PileOfanyType) append(items ...anyType) *PileOfanyType {
@@ -232,12 +233,14 @@ func (a *PileOfanyType) append(items ...anyType) *PileOfanyType {
 func (a *PileOfanyType) add(item anyType) *PileOfanyType {
 	if idx, duplicate := a.Idx(item); duplicate {
 		a.put(item, idx)
-		idx, _ := a.duplicates.Idx(item)
-		idx++
-		a.duplicates.put(item, idx)
+		cnt := Cardinal(1)
+		if idx, found := a.duplicates[item]; found {
+			cnt = cnt.Add(cnt, idx)
+		}
+		a.duplicates[item] = cnt
 	} else {
 		a.anyTypeS = append(a.anyTypeS, item)
-		a.put(item, Index(len(a.anyTypeS)))
+		a.put(item, Ordinal(len(a.anyTypeS)))
 	}
 	return a
 }
@@ -264,7 +267,7 @@ func (a PileOfanyType) Fmap(f func(anyType) anyType) *PileOfanyType {
 		a.ID,
 		make([]anyType, 0, cap),
 		lookUpanyType{make(map[anyType]Index, cap)},
-		lookUpanyType{make(map[anyType]Index)},
+		make(map[anyType]Cardinality),
 	}
 	for _, item := range a.anyTypeS {
 		pile = pile.add(f(item))
@@ -289,10 +292,10 @@ func (a PileOfanyType) Sort(less func(i, j int) bool) *PileOfanyType {
 		a.ID,
 		a.anyTypeS.Sort(less),
 		lookUpanyType{make(map[anyType]Index, cap)},
-		lookUpanyType{make(map[anyType]Index)},
+		make(map[anyType]Cardinality),
 	}
 	for i, item := range pile.anyTypeS {
-		pile.lookUpanyType.look[item] = Index(i + 1)
+		pile.lookUpanyType.look[item] = Ordinal(i + 1)
 	}
 	return pile
 }

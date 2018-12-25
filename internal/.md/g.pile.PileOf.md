@@ -5,7 +5,7 @@ type PileOfanyType struct {
 	anyTypeS
 
 	lookUpanyType
-	duplicates lookUpanyType
+	duplicates map[anyType]Cardinality
 }
     PileOfanyType holds different items of some kind, accessible in order of
     arrival and by index as well as via reverse look-up: Idx(item) returns the
@@ -18,7 +18,7 @@ func NewPileOfanyType(name string, items ...anyType) *PileOfanyType
 func (a PileOfanyType) At(idx Index) anyType
 func (a PileOfanyType) Both() (aten, apep interface{})
 func (a PileOfanyType) Contains(item interface{}) (contains bool)
-func (a PileOfanyType) Duplicates() map[anyType]Index
+func (a PileOfanyType) Duplicates() map[anyType]Cardinality
 func (a PileOfanyType) Fmap(f func(anyType) anyType) *PileOfanyType
 func (a PileOfanyType) Idx(item anyType) (idx Index, found bool)
 func (a PileOfanyType) Len() int
