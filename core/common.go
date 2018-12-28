@@ -296,22 +296,22 @@ func (a Tail) Contains(item interface{}) (contains bool) {
 func (a nilPair)     Of(index Index) Head { return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a kind)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } } return nilHead }
+func (a kind)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a name)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } } return nilHead }
+func (a name)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a Index)       Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } } return nilHead }
+func (a Index)       Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a Cardinality) Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } } return nilHead }
+func (a Cardinality) Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a nest)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } } return nilHead }
+func (a nest)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a Head)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } } return nilHead }
+func (a Head)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
 
 // Of returns a Head for the item of position index, of nilHead iff the index is out of bounds.
 func (a Tail)        Of(index Index) Head {
