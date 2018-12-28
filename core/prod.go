@@ -25,8 +25,8 @@ func X(factors ...Iterable) (tail Tail) {
 func mult(a, b Iterable) (tail Tail) {
 	if a == nil || b == nil { return NilTail() }
 
-	aHead, _ := a.Tail()()
-	aTail, bTail, reset := a.Tail(), b.Tail(), b.Tail()
+	aHead, aTail := a.Tail()()
+	bTail, reset := b.Tail(), b.Tail()
 
 	tail = func() (Head, Tail) { return prod(aHead, aTail, bTail, reset) }
 	return
@@ -42,7 +42,7 @@ func prod(aHead Head, aTail, bTail, reset Tail) (head Head, tail Tail) {
 
 	if aHead == nil || bHead == nil { return NilTail()() }
 
-	head = func() Pair         { return Join(aHead, bHead) }
+	head = func() Pair         { return Join(aHead(), bHead()) }
 	tail = func() (Head, Tail) { return prod(aHead, aTail, bTail, reset) }
 	return
 }
