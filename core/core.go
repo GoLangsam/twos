@@ -111,6 +111,17 @@ func(a Cardinality)Cmp(b Cardinality) (r int) {
 	return a.Int.Cmp(b.Int)
 }
 
+// Predicate is the type of a Pair predicate.
+type Predicate func(Pair) bool
+
+// Is just returns the given function
+// casted to function-type `Predicate`.
+//
+// Is is just a convenince for `Predicate(f)`. 
+func Is(a func(Pair) bool) Predicate {
+	return a
+}
+
 // ===========================================================================
 
 // AsOffset returns the slice-offset corresponding to ordinal number a: a-1.
