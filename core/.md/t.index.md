@@ -12,12 +12,16 @@ func (a Index) Add(x, y Index) Index
 func (a Index) AsInt() int
 func (a Index) AsOffset() int
 func (a Index) Both() (aten, apep interface{})
-func (a Index) Cmp(b Index) (r int)
 func (a Index) Contains(item interface{}) (contains bool)
+func (a Index) IsEq() Predicate
+func (a Index) IsEqInt() func(int) bool
+func (a Index) IsLess() Predicate
+func (*Index) IsNul() Predicate
+func (*Index) IsOne() Predicate
 func (a Index) Lift(as ...Index) []Index
 func (a Index) Name() string
 func (a Index) Of(index Index) Head
 func (a Index) Size() Cardinality
 func (a Index) String() string
 func (a Index) Tail() Tail
-func (a *Index) Unit() Index
+func (*Index) Unit() Index

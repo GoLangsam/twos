@@ -64,52 +64,20 @@ type Iterable interface {
 // Unit returns the unit value
 // of type ID which
 // resembles an empty string - the neutral element of concatination.
-func(a *name)Unit() name {return ID("")}
+func(*name)Unit() name {return ID("")}
 
 // Unit returns the unit value
 // of type Index which
 // resembles One (1) - the neutral element of multiplication.
-func(a *Index)Unit() Index {return Ordinal(1)}
+func(*Index)Unit() Index {return Ordinal(1)}
 
 // Unit returns the unit value
 // of type Cardinality which
 // represents the cardinality of the empty set.
 // It resembles Zero/Null - the neutral element of addition.
-func(a *Cardinality)Unit() Cardinality {return Cardinal(0)}
+func(*Cardinality)Unit() Cardinality {return Cardinal(0)}
 
-// Cmp compares a and b and returns:
-//
-//  -1 if a <  b
-//   0 if a == b
-//  +1 if a >  b
-func(a name)Cmp(b name) (r int) {
-	switch {
-	case a < b:
-		return -1
-	case a > b:
-		return +1
-	default:
-		return 0
-	}
-}
-
-// Cmp compares a and b and returns:
-//
-//  -1 if a <  b
-//   0 if a == b
-//  +1 if a >  b
-func(a Index)Cmp(b Index) (r int) {
-	return a.Int.Cmp(b.Int)
-}
-
-// Cmp compares a and b and returns:
-//
-//  -1 if a <  b
-//   0 if a == b
-//  +1 if a >  b
-func(a Cardinality)Cmp(b Cardinality) (r int) {
-	return a.Int.Cmp(b.Int)
-}
+// ===========================================================================
 
 // Predicate is the type of a Pair predicate.
 type Predicate func(Pair) bool
@@ -147,7 +115,7 @@ func (a Index) AsInt() int {
 		return -1
 	}
 	max := Ordinal(int(^uint(0) >> 1)) // maxInt
-	if a.Cmp(max) > 0 {
+	if max.IsLess()(a) {
 		return -1
 	}
 	return int(a.Int64())
@@ -159,7 +127,7 @@ func (a Cardinality) AsInt() int {
 		return -1
 	}
 	max := Cardinal(int(^uint(0) >> 1)) // maxInt
-	if a.Cmp(max) > 0 {
+	if max.IsLess()(a) {
 		return -1
 	}
 	return int(a.Int64())

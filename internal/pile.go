@@ -126,10 +126,9 @@ func (a PileOfanyType) Len() int { return a.anyTypeS.Len() }
 // Size implements Pile by returning the length of the Pile.
 func (a PileOfanyType) Size() Cardinality { return a.lookUpanyType.Size() }
 
-// Of
+// Of returns a of the Pair iff index is one and nilHead otherwise.
 func (a onesOfanyType) Of(index Index) Head {
-	one := Ordinal(1)
-	if index.Cmp(one) == 0 {
+	if index.IsOne()(index) {
 		return func() Pair { return a }
 	}
 	nilHead, _ := NilTail()()

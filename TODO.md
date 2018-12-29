@@ -11,18 +11,24 @@
 - SizeOfPair is Zero iff it's not a Pile. This seems wrong!
 - SizeOfPile (new) should do all the inspection!
 
+- FAQ: Indexs, not Indices; Cardinalitys, not Cardinalities
+
 ## Extend
+- migrate to "github.com/ncw/gotemplate"
+
 - func Of(indexes []Index, indices ...Indexed} Head
+- change Contains into Predicate
 - test Contains for all basic types
+
+- C, I, Names as Tail
+
 - Make Tree correct: Node(interface{}
 - Node.Tail must walk the tree!
-- C, I, Names as Tail
 
 ---
 ## Future maybe
 
 - include PipeOf - from pipe.m for all? types? One package? One per type?
-- FAQ: Indexs, not Indices; Cardinalitys, not Cardinalities
 - allow for small and growing lookers
 
 ---

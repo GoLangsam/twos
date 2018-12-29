@@ -246,7 +246,7 @@ func (a nilPair) Contains(item interface{}) (contains bool) {
 // by telling whether the given item is of suitable type
 // and if so, whether a contains this item.
 func (a name) Contains(item interface{}) (contains bool) {
-	if i, contains := item.(name); contains && i == a { return contains }
+	if i, contains := item.(name); contains && a.IsEq()(i) { return contains }
 	return false
 }
 
@@ -254,7 +254,7 @@ func (a name) Contains(item interface{}) (contains bool) {
 // by telling whether the given item is of suitable type
 // and if so, whether a contains this item.
 func (a Index) Contains(item interface{}) (contains bool) {
-	if i, contains := item.(Index); contains && a.Cmp(i) == 0 { return contains }
+	if i, contains := item.(Index); contains && a.IsEq()(i) { return contains }
 	return false
 }
 
@@ -262,7 +262,7 @@ func (a Index) Contains(item interface{}) (contains bool) {
 // by telling whether the given item is of suitable type
 // and if so, whether a contains this item.
 func (a Cardinality) Contains(item interface{}) (contains bool) {
-	if i, contains := item.(Cardinality); contains && a.Cmp(i) == 0 { return contains }
+	if i, contains := item.(Cardinality); contains && a.IsEq()(i) { return contains }
 	return false
 }
 
@@ -271,7 +271,7 @@ func (a Cardinality) Contains(item interface{}) (contains bool) {
 // and if so, whether a contains this item.
 func (a Head) Contains(item interface{}) (contains bool) {
 	if a == nil { return item == nil }
-	if i, contains := item.(Pair); contains && i == a() { return contains }
+	if i, contains := item.(Pair); contains && IsEqual(a())(i) { return contains }
 	return false
 }
 
@@ -296,29 +296,30 @@ func (a Tail) Contains(item interface{}) (contains bool) {
 func (a nilPair)     Of(index Index) Head { return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a kind)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
+func (a kind)        Of(index Index) Head { if index.IsOne()(index) { return func() Pair { return a } }; return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a name)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
+func (a name)        Of(index Index) Head { if index.IsOne()(index) { return func() Pair { return a } }; return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a Index)       Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
+func (a Index)       Of(index Index) Head { if index.IsOne()(index) { return func() Pair { return a } }; return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a Cardinality) Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
+func (a Cardinality) Of(index Index) Head { if index.IsOne()(index) { return func() Pair { return a } }; return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a nest)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
+func (a nest)        Of(index Index) Head { if index.IsOne()(index) { return func() Pair { return a } }; return nilHead }
 
 // Of returns a of the Pair iff index is one and nilHead otherwise.
-func (a Head)        Of(index Index) Head { if index.Cmp(Ordinal(1)) == 0 { return func() Pair { return a } }; return nilHead }
+func (a Head)        Of(index Index) Head { if index.IsOne()(index) { return func() Pair { return a } }; return nilHead }
 
 // Of returns a Head for the item of position index, of nilHead iff the index is out of bounds.
 func (a Tail)        Of(index Index) Head {
+	eq, less := index.IsEq(), index.IsLess()
 	current, step := Ordinal(0), Ordinal(1)
-	for head, tail := a(); head != nil && current.Cmp(index) < 0; head, tail = tail() {
+	for head, tail := a(); head != nil && less(current); head, tail = tail() {
 		current = current.Add(current, step)
-		if current.Cmp(index) == 0 { return func() Pair { return head } }
+		if eq(current) { return func() Pair { return head } }
 	}
 	return nilHead
 }

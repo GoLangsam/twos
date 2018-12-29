@@ -31,9 +31,10 @@
 @go doc -u . pair		>	.\.md\i.pair.md
 @go doc -u . iterable		>	.\.md\i.iterable.md
 
-@Echo Function types: Head Tail
+@Echo Function types: Head Tail Predicate
 @go doc -u . head		>	.\.md\f.head.md
 @go doc -u . tail		>	.\.md\f.tail.md
+@go doc -u . predicate		>	.\.md\f.pred.md
 
 @Echo Finished Documentation for directory:
 @pwd

@@ -8,11 +8,11 @@ package core
 
 // IsLess returns a Predicate
 // which is useful to disriminate
-// if some Pair is less than a or not.
+// if a is less than some Pair or not.
 func(a Index)IsLess() Predicate {
 	return func (p Pair) (less bool) {
 		if x, less := p.(Index); less {
-			return x.Int.Cmp(a.Int) < 0
+			return x.Int.Cmp(a.Int) > 0
 		}
 		return
 	}

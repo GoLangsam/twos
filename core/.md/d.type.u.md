@@ -5,6 +5,7 @@ type ID = name
 type Index = ordinalNumber
 type Iterable interface{ ... }
 type Pair interface{ ... }
+type Predicate func(Pair) bool
 type Tail func() (Head, Tail)
 type TailS []Tail
 type Type = reflect.Type

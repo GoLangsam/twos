@@ -30,6 +30,8 @@ type Pair interface{ ... }
     func Aten(a Pair) Pair
     func Join(a, b Pair) Pair
     func Swap(a Pair) Pair
+type Predicate func(Pair) bool
+    func Is(a func(Pair) bool) Predicate
 type Tail func() (Head, Tail)
     func Iter(pairs ...Pair) (tail Tail)
     func NilTail() Tail
