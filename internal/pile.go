@@ -105,7 +105,7 @@ func (a PileOfanyType) String() string { return StringOfTwos(a.ID, a.anyTypeS) }
 // String implements fmt.Stringer.
 func (a anyTypeS) String() string {
 	if len(a) > 0 {
-	return StringOfTwos(a[:1], a[1:]) }
+	return StringOfTwos(a[0],    a[1:]) }
 	return StringOfTwos("<nil>", "[<nil>...]") }
 
 // ===========================================================================
