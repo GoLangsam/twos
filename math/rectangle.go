@@ -78,5 +78,6 @@ func Rectangle(name ID, cols, rows IndexedPile) *rectangle {
 
 func (a rectangle) Both() (aten, apep interface{}) { return a.ID, a.pilePair }
 func (a rectangle) Size() Cardinality { return a.pilePair.Size() }
+func (a rectangle) Tail() Tail        { return a.pilePair.Tail() }
 
 // ===========================================================================
