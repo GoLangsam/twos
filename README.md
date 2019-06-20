@@ -24,3 +24,11 @@ See [`twos.md`](twos.md) for more.
 
 - [How do I make a `Pair`](How-to-make-a-Pair.md)?
 - [How do I nest pairs](How-to-nest-pairs.md)?
+
+---
+Your suggestions, remarks, questions and/or contributions are welcome ;-)
+
+---
+## Think deep - code happy - be simple - see clear :-)
+
+---
