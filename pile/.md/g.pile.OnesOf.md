@@ -1,5 +1,3 @@
-package pile // import "github.com/GoLangsam/twos/pile"
-
 type onesOfPile struct {
 	ID
 	Apep Pile

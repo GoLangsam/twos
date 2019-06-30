@@ -1,8 +1,5 @@
-package core // import "github.com/GoLangsam/twos/core"
-
 type Tail func() (Head, Tail)
     Tail is a thunk which evaluates to a Head and to another Tail.
-
 
 func Iter(pairs ...Pair) (tail Tail)
 func NilTail() Tail

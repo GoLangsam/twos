@@ -1,5 +1,3 @@
-package core // import "github.com/GoLangsam/twos/internal"
-
 type onesOfanyType struct {
 	ID
 	Apep anyType

@@ -94,19 +94,13 @@ func (a PileOfanyType) Both() (aten, apep interface{}) { return a.ID, a.anyTypeS
 func (a anyTypeS) Both() (aten, apep interface{}) {
 	if len(a) > 0 {
 	return a[:1], a[1:] }
-	return a[:0], a[0:] }
+	return nil, nil }
 
 // String implements fmt.Stringer.
 func (a onesOfanyType) String() string { return StringOfTwos(a.ID, a.Apep) }
 
 // String implements fmt.Stringer.
 func (a PileOfanyType) String() string { return StringOfTwos(a.ID, a.anyTypeS) }
-
-// String implements fmt.Stringer.
-func (a anyTypeS) String() string {
-	if len(a) > 0 {
-	return StringOfTwos(a[0],    a[1:]) }
-	return StringOfTwos("<nil>", "[<nil>...]") }
 
 // ===========================================================================
 

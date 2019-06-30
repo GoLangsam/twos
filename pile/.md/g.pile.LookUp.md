@@ -1,5 +1,3 @@
-package pile // import "github.com/GoLangsam/twos/pile"
-
 type lookUpPile struct{ look map[Pile]Index }
 
 func (a lookUpPile) Idx(item Pile) (idx Index, found bool)

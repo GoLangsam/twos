@@ -1,5 +1,3 @@
-package core // import "github.com/GoLangsam/twos/internal"
-
 type lookUpanyType struct{ look map[anyType]Index }
 
 func (a lookUpanyType) Idx(item anyType) (idx Index, found bool)

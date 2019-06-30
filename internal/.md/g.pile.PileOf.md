@@ -1,5 +1,3 @@
-package core // import "github.com/GoLangsam/twos/internal"
-
 type PileOfanyType struct {
 	ID
 	anyTypeS
@@ -12,7 +10,6 @@ type PileOfanyType struct {
     index (if any). It may be seen as a finite ordered indexed immutable set.
 
     Intentionally there is no removal, neither are add nor append exported.
-
 
 func NewPileOfanyType(name string, items ...anyType) *PileOfanyType
 func (a PileOfanyType) At(idx Index) anyType

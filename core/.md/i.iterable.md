@@ -1,5 +1,3 @@
-package core // import "github.com/GoLangsam/twos/core"
-
 type Iterable interface {
 	Tail() Tail
 }

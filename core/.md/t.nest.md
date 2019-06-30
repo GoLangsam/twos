@@ -1,11 +1,8 @@
-package core // import "github.com/GoLangsam/twos/core"
-
 type nest struct {
 	Aten Pair
 	Apep Pair
 }
     nest represents a nested pair, a pair of pairs.
-
 
 func (a nest) Both() (aten, apep interface{})
 func (a nest) Contains(item interface{}) (contains bool)

@@ -1,8 +1,5 @@
-package core // import "github.com/GoLangsam/twos/core"
-
 type name string
     name as a unique identifier - unique among its Kind.
-
 
 func (a name) Both() (aten, apep interface{})
 func (a name) Contains(item interface{}) (contains bool)

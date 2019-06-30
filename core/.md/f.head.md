@@ -1,8 +1,5 @@
-package core // import "github.com/GoLangsam/twos/core"
-
 type Head func() Pair
     Head is a thunk which evaluates to a Pair.
-
 
 func (a Head) Both() (aten, apep interface{})
 func (a Head) Contains(item interface{}) (contains bool)

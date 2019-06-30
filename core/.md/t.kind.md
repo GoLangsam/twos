@@ -1,11 +1,8 @@
-package core // import "github.com/GoLangsam/twos/core"
-
 type kind struct {
 	ID
 	Type
 }
     kind implements a named type
-
 
 func KindOfPair(a Pair) kind
 func (a kind) Both() (aten, apep interface{})

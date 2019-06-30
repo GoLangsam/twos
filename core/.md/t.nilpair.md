@@ -1,5 +1,3 @@
-package core // import "github.com/GoLangsam/twos/core"
-
 type nilPair struct{}
 
 func (a nilPair) Both() (aten, apep interface{})

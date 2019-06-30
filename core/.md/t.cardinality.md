@@ -1,8 +1,5 @@
-package core // import "github.com/GoLangsam/twos/core"
-
 type Cardinality = cardinalNumber
     Cardinality represents a cardinal number such as the #-of items in a Pile.
-
 
 func Cardinal(a int) Cardinality
 func SizeOfPair(a Pair) (size Cardinality)
