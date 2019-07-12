@@ -4,3 +4,4 @@ func FmapanyTypes(f func(anyType) anyType, anyTypes ...anyType) (anyTypeS []anyT
 func JoinanyTypeS(anyTypeSs ...[]anyType) (anyTypeS []anyType)
 func LiftanyType(anyTypes ...anyType) (anyTypeS []anyType)
     func NewPileOfanyType(name string, items ...anyType) *PileOfanyType
+    func NewanyTypePile(name string, items <-chan anyType) *PileOfanyType

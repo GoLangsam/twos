@@ -30,4 +30,5 @@ type Index = core.Index
 type Pair = core.Pair
 type PileOfanyType struct{ ... }
     func NewPileOfanyType(name string, items ...anyType) *PileOfanyType
+    func NewanyTypePile(name string, items <-chan anyType) *PileOfanyType
 type Tail = core.Tail

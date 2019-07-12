@@ -76,6 +76,22 @@ func NewPileOfanyType(name string, items ...anyType) *PileOfanyType {
 	return pile
 }
 
+// NewanyTypePile returns a named Pile of items.
+// given an accessible finite channel of them.
+func NewanyTypePile(name string, items <-chan anyType) *PileOfanyType {
+
+	pile := &PileOfanyType{
+		ID(name),
+		[]anyType{},
+		lookUpanyType{make(map[anyType]Index)},
+		make(map[anyType]Cardinality),
+	}
+	for item := range items {
+		pile = pile.append(item)
+	}
+	return pile
+}
+
 // ===========================================================================
 
 // Both implements Pair

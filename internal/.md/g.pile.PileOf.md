@@ -12,6 +12,7 @@ type PileOfanyType struct {
     Intentionally there is no removal, neither are add nor append exported.
 
 func NewPileOfanyType(name string, items ...anyType) *PileOfanyType
+func NewanyTypePile(name string, items <-chan anyType) *PileOfanyType
 func (a PileOfanyType) At(idx Index) anyType
 func (a PileOfanyType) Both() (aten, apep interface{})
 func (a PileOfanyType) Contains(item interface{}) (contains bool)
