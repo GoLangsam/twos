@@ -26,19 +26,19 @@ type name string
 // This is more intuitive for users.
 // (Well, programmers prefer offsets over ordinals).
 type Index = ordinalNumber
-type ordinalNumber struct { *big.Int }
+type ordinalNumber struct{ *big.Int }
 
 // Ordinal returns an Index representing the number a.
-func Ordinal(a int) Index {return Index{big.NewInt(int64(a))}}
+func Ordinal(a int) Index { return Index{big.NewInt(int64(a))} }
 
 // ===========================================================================
 
 // Cardinality represents a cardinal number such as the #-of items in a Pile.
 type Cardinality = cardinalNumber
-type cardinalNumber struct { *big.Int }
+type cardinalNumber struct{ *big.Int }
 
 // Cardinal returns a Cardinality representing the number a.
-func Cardinal(a int) Cardinality {return Cardinality{big.NewInt(int64(a))}}
+func Cardinal(a int) Cardinality { return Cardinality{big.NewInt(int64(a))} }
 
 // ===========================================================================
 // Interfaces
@@ -64,18 +64,18 @@ type Iterable interface {
 // Unit returns the unit value
 // of type ID which
 // resembles an empty string - the neutral element of concatination.
-func(*name)Unit() name {return ID("")}
+func (*name) Unit() name { return ID("") }
 
 // Unit returns the unit value
 // of type Index which
 // resembles One (1) - the neutral element of multiplication.
-func(*Index)Unit() Index {return Ordinal(1)}
+func (*Index) Unit() Index { return Ordinal(1) }
 
 // Unit returns the unit value
 // of type Cardinality which
 // represents the cardinality of the empty set.
 // It resembles Zero/Null - the neutral element of addition.
-func(*Cardinality)Unit() Cardinality {return Cardinal(0)}
+func (*Cardinality) Unit() Cardinality { return Cardinal(0) }
 
 // ===========================================================================
 
@@ -85,7 +85,7 @@ type Predicate func(Pair) bool
 // Is just returns the given function
 // casted to function-type `Predicate`.
 //
-// Is is just a convenince for `Predicate(f)`. 
+// Is is just a convenince for `Predicate(f)`.
 func Is(a func(Pair) bool) Predicate {
 	return a
 }
@@ -102,7 +102,7 @@ func (a Index) AsOffset() int {
 
 // At returns the Index corresponding to slice-offset i: i+1
 func At(i int) Index {
-	idx := Ordinal(i) 
+	idx := Ordinal(i)
 	return idx.Add(idx, Ordinal(1))
 }
 
@@ -138,21 +138,21 @@ func (a Cardinality) AsInt() int {
 // Add sets a to the sum x+y and returns a.
 func (a Index) Add(x, y Index) Index {
 
-	a.Int = a.Int.Add(x.Int, y.Int) 
+	a.Int = a.Int.Add(x.Int, y.Int)
 	return a
 }
 
 // Add sets a to the sum x+y and returns a.
 func (a Cardinality) Add(x, y Cardinality) Cardinality {
 
-	a.Int = a.Int.Add(x.Int, y.Int) 
+	a.Int = a.Int.Add(x.Int, y.Int)
 	return a
 }
 
 // Mul sets a to the product x*y and returns a.
 func (a Cardinality) Mul(x, y Cardinality) Cardinality {
 
-	a.Int = a.Int.Mul(x.Int, y.Int) 
+	a.Int = a.Int.Mul(x.Int, y.Int)
 	return a
 }
 

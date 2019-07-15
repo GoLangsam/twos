@@ -27,7 +27,7 @@ type permuter struct {
 // but may need a type assertion upon evaluation of some head.
 //
 // Along the way, Next() may be mixed with evaluation of some tail().
-func Permuter(tails TailS) *permuter {
+func Permuter(tails ...Tail) *permuter {
 	a := &permuter{
 		tails,
 		TailS{},
@@ -118,7 +118,7 @@ func (a *permuter) Len() int {
 func (a *permuter) Size() Cardinality {
 	size := Cardinal(1)
 	for _, t := range a.reset {
-		size = size.Mul(size, t.Size()) 
+		size = size.Mul(size, t.Size())
 	}
 	return size
 }

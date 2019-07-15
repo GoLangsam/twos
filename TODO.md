@@ -13,6 +13,8 @@
 
 - FAQ: Indexs, not Indices; Cardinalitys, not Cardinalities
 
+- TODO: In order to extend a pile, we must make a new pile. What a pitty!
+
 ## Extend
 - migrate to "github.com/ncw/gotemplate"
 
@@ -60,6 +62,7 @@
 	-look: ----/----/Length/----/----- + Fmap + more	TODO:Range? Test, if external pack may range Duplicates
 	-pile: Both/Kind/Length/Tail/Range + look*** + Fmap ...	TODO:Join: same+same, JoinPile: same+any
 
+- Permuter.Length(): see math/big: func (z *Int) Binomial(n, k int64) *Int
 
 ---
 ## Package level functions:
@@ -135,4 +138,3 @@
   And register each into core a la image.RegisterFormat, see image/image.go
 
   v := ValueOf(???).Convert(t Type)
-

@@ -9,8 +9,8 @@ package core
 // IsLess returns a Predicate
 // which is useful to disriminate
 // if a is less than some Pair or not.
-func(a Cardinality)IsLess() Predicate {
-	return func (p Pair) (less bool) {
+func (a Cardinality) IsLess() Predicate {
+	return func(p Pair) (less bool) {
 		if x, less := p.(Cardinality); less {
 			return x.Int.Cmp(a.Int) > 0
 		}
@@ -21,8 +21,8 @@ func(a Cardinality)IsLess() Predicate {
 // IsEq returns a Predicate
 // which is useful to disriminate
 // if some Pair is equal to a or not.
-func(a Cardinality)IsEq() Predicate {
-	return func (p Pair) (equal bool) {
+func (a Cardinality) IsEq() Predicate {
+	return func(p Pair) (equal bool) {
 		if x, equal := p.(Cardinality); equal {
 			return x.Int.Cmp(a.Int) == 0
 		}
@@ -33,8 +33,8 @@ func(a Cardinality)IsEq() Predicate {
 // IsNul returns a Predicate
 // which is useful to disriminate
 // if some Pair represents the zero value.
-func(*Cardinality)IsNul() Predicate {
-	return func (p Pair) (isNul bool) {
+func (*Cardinality) IsNul() Predicate {
+	return func(p Pair) (isNul bool) {
 		if x, isNul := p.(Cardinality); isNul {
 			return x.IsEq()(Cardinal(0))
 		}
@@ -45,8 +45,8 @@ func(*Cardinality)IsNul() Predicate {
 // IsOne returns a Predicate
 // which is useful to disriminate
 // if some Pair represents the multiplicative unit.
-func(*Cardinality)IsOne() Predicate {
-	return func (p Pair) (isOne bool) {
+func (*Cardinality) IsOne() Predicate {
+	return func(p Pair) (isOne bool) {
 		if x, isOne := p.(Cardinality); isOne {
 			return x.IsEq()(Cardinal(1))
 		}
@@ -59,8 +59,8 @@ func(*Cardinality)IsOne() Predicate {
 // if some int number is equal to a or not.
 //
 // IsEqInt is a conveninence method - syntactical sugar.
-func(a Cardinality)IsEqInt() func(int) bool {
-	return func (x int) bool {
+func (a Cardinality) IsEqInt() func(int) bool {
+	return func(x int) bool {
 		return a.IsEq()(Cardinal(x))
 	}
 }
