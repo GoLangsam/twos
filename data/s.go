@@ -1,6 +1,8 @@
-// Copyright 2018 Andreas Pannewitz. All rights reserved.
+// Copyright 2016 Andreas Pannewitz. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
+
+//go:pattern "github.com/GoLangsam/do/id/s.go"
 
 package data
 
@@ -50,13 +52,14 @@ func getFormatWidth(prefix string, anz int) string {
 	return "%s" + getFormatWidthPaddingZeros(int(anz))
 }
 
-// IDs returns a slice of size-adjusted IDs.
-func IDs(prefix string, anz int) []string {
+// S returns a slice of N size-adjusted prefixed numbered IDs: id.S.
+// For an empty prefix, right-adjusted number-strings are produced.
+func S(prefix string, N int) []string {
 
-	var s = make([]string, 0, anz)
-	var f = getFormatWidth(prefix, anz)
+	var s = make([]string, 0, N)
+	var f = getFormatWidth(prefix, N)
 
-	for i := 0; i < anz; i++ {
+	for i := 0; i < N; i++ {
 		id := fmt.Sprintf(f, prefix, i+1)
 		s = append(s, id)
 	}
