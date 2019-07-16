@@ -163,56 +163,6 @@ func (a Tail) Sew(needle func(Pair)) Tail {
 
 // ===========================================================================
 
-// Reduce returns the result of applying f along the Tail.
-func (a Tail) Reduce(f func(Pair, interface{}) interface{}, init interface{}) interface{} {
-	for head, tail := a(); head != nil; head, tail = tail() {
-		init = f(head(), init)
-	}
-	return init
-}
-
-// ReduceInt returns the result of applying f along the Tail.
-func (a Tail) ReduceInt(f func(Pair, int) int, init int) int {
-	for head, tail := a(); head != nil; head, tail = tail() {
-		init = f(head(), init)
-	}
-	return init
-}
-
-// ReduceBool returns the result of applying f along the Tail.
-func (a Tail) ReduceBool(f func(Pair, bool) bool, init bool) bool {
-	for head, tail := a(); head != nil; head, tail = tail() {
-		init = f(head(), init)
-	}
-	return init
-}
-
-// ReducePair returns the result of applying f along the Tail.
-func (a Tail) ReducePair(f func(Pair, Pair) Pair, init Pair) Pair {
-	for head, tail := a(); head != nil; head, tail = tail() {
-		init = f(head(), init)
-	}
-	return init
-}
-
-// ReduceString returns the result of applying f along the Tail.
-func (a Tail) ReduceString(f func(Pair, string) string, init string) string {
-	for head, tail := a(); head != nil; head, tail = tail() {
-		init = f(head(), init)
-	}
-	return init
-}
-
-// ReduceCardinality returns the result of applying f along the Tail.
-func (a Tail) ReduceCardinality(f func(Pair, Cardinality) Cardinality, init Cardinality) Cardinality {
-	for head, tail := a(); head != nil; head, tail = tail() {
-		init = f(head(), init)
-	}
-	return init
-}
-
-// ===========================================================================
-
 // Skip returns
 // a Tail
 // which allows to traverse only those heads of the Tail of the original iterable
