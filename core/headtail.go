@@ -217,7 +217,7 @@ func (a Tail) ReduceCardinality(f func(Pair, Cardinality) Cardinality, init Card
 // a Tail
 // which allows to traverse only those heads of the Tail of the original iterable
 // which evaluate to a pair
-// that does not satisfy the given boolean attribute function.
+// that does not satisfy the given boolean predicate function.
 func Skip(iter Iterable, pairIs func(Pair) bool) Tail {
 	return func() (head Head, tail Tail) {
 		for head, tail = iter.Tail()(); head != nil && pairIs(head()); head, tail = tail() { /* noop */ }
@@ -230,7 +230,7 @@ func Skip(iter Iterable, pairIs func(Pair) bool) Tail {
 // a Tail
 // which allows to traverse only those heads of the Tail of the original iterable
 // which evaluate to a pair
-// that satisfies the given boolean attribute function.
+// that satisfies the given boolean predicate function.
 func Only(iter Iterable, pairIs func(Pair) bool) Tail {
 	return Skip(iter, func(a Pair) bool { return !pairIs(a) })
 }
@@ -241,7 +241,7 @@ func Only(iter Iterable, pairIs func(Pair) bool) Tail {
 // a Tail
 // which allows to traverse those heads only
 // which evaluate to a pair
-// that does not satisfy the given boolean attribute function.
+// that does not satisfy the given boolean predicate function.
 func (a Tail) Skip(pairIs func(Pair) bool) Tail {
 	return Skip(a, pairIs)
 }
@@ -250,7 +250,7 @@ func (a Tail) Skip(pairIs func(Pair) bool) Tail {
 // a Tail
 // which allows to traverse those heads only
 // which evaluate to a pair
-// which satisfies the given boolean attribute function.
+// which satisfies the given boolean predicate function.
 func (a Tail) Only(pairIs func(Pair) bool) Tail {
 	return Only(a, pairIs)
 }

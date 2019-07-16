@@ -76,7 +76,7 @@ Certain combinations are predefined - be it for ease of use, be it for useful di
 
 "Pair of Pairs" is among them as is "pair of `reflect.Type`".
 
-By convention, a Pair implemented by a `struct` exposes it's sides as fields `Aten` & `Apep`,
+By convention, a Pair implemented by a `struct` exposes its sides as fields `Aten` & `Apep`,
 thus permitting type-safe access of each side.
 
 ---
@@ -93,7 +93,7 @@ A `Tail` allows to iterate thru such collection.
 Let `tail` be a `Tail`:
 ```go
 	for head, tail := tail(); head != nil; head, tail = tail() {
-		// do sth with head, e.g. obtain it's pair
+		// do sth with head, e.g. obtain its pair
 		myPair := head()
 		_ = myPair // do sth with myPair
 	}
@@ -118,9 +118,9 @@ Let `tail` be a `Tail`:
 	}
 ```
 
-`Range` is variadic - it accepts any number of attributes - unary functions `func(Pair) bool` (see below).
+`Range` is variadic - it accepts any number of predicates - unary functions `func(Pair) bool` (see below).
 
-Used this way, `Range` acts as an `and`-filter: any `Pair` must satisfy each and every attribute.
+Used this way, `Range` acts as an `and`-filter: any `Pair` must satisfy each and every predicate.
 
 Note: The beauty and versatility of `Range` comes at a price: a channel and a go routine are involved.
 
@@ -143,7 +143,7 @@ An important combination is the pair of pairs, which allows to nest pairs to arb
 
 `IsNested(a Pair)` discriminates iff the Pair is nested on one side at least.
 
-Note: boolean convenience functions (attributes) such as IsNested, IsAtomAten, IsAtomApep facilitate further discriminations.
+Note: boolean convenience functions (predicates) such as IsNested, IsAtomAten, IsAtomApep facilitate further discriminations.
 
 ### `typTyp` - a Pair of Types - the signature of the `Pair`
 
