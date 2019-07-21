@@ -56,8 +56,12 @@ func Join(a, b Pair) Pair {
 	return nest{a, b}
 }
 
-// Contains discriminates iff item == a
-// or is identical to one of the two pairs of a.
+
+// Contains implements Container
+// by telling whether the given item is of suitable type
+// and if so, whether a contains this item
+// due to item == a or due to
+// being identical to one of the two pairs of a.
 func (a nest) Contains(item interface{}) (contains bool) {
 	if n, contains := item.(nest); contains {
 		if contains = a == n; !contains {

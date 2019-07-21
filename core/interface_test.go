@@ -34,10 +34,10 @@ func ExampleIterable_interface() {
 
 }
 
-// Named represents a named type.
-type Named interface{ Name() string }
-
 func ExampleNamed_interface() {
+
+	// Named represents a named type.
+	type Named interface{ Name() string }
 
 	var _ Named = ID("Test")
 	var _ Named = Ordinal(4711)
@@ -52,12 +52,28 @@ func ExampleNamed_interface() {
 
 }
 
-// Pile holds Size items.
-type Pile interface {
-	Size() Cardinality
+func ExampleStringer_interface() {
+
+	// Stringer represents a type which can express itself as a string.
+	type Stringer interface{ String() string }
+
+	var _ Stringer = ID("Test")
+	var _ Stringer = Ordinal(4711)
+	var _ Stringer = Cardinal(4711)
+
+	var _, _ Stringer = nilPair{}, &nilPair{}
+	var _, _ Stringer = nest{}, &nest{}
+	var _, _ Stringer = kind{}, &kind{}
+
+	var _ Stringer = NilTail()
+	var _, _ Stringer = NilTail()()
+
 }
 
 func ExamplePile_interface() {
+
+	// Pile holds Size items.
+	type Pile interface { Size() Cardinality }
 
 	var _ Pile = ID("Test")
 	var _ Pile = Ordinal(4711)
@@ -72,12 +88,10 @@ func ExamplePile_interface() {
 
 }
 
-// Indexed allows to retrieve a Head Of any item by Index.
-type Indexed interface {
-	Of(Index) Head
-}
-
 func ExampleIndexed_interface() {
+
+	// Indexed allows to retrieve a Head Of any item by Index.
+	type Indexed interface { Of(Index) Head }
 
 	var _ Indexed = ID("Test")
 	var _ Indexed = Ordinal(4711)
@@ -91,21 +105,19 @@ func ExampleIndexed_interface() {
 	var _, _ Indexed = NilTail()()
 }
 
-// Container can tell for any item whether it contains this item or not.
-type Container interface {
-	Contains(item interface{}) bool
-}
-
 func ExampleContainer_interface() {
+
+	// Container can tell for any item whether it contains this item or not.
+	type Container interface { Contains(item interface{}) bool }
 
 	var _ Container = ID("Test")
 	var _ Container = Ordinal(4711)
 	var _ Container = Cardinal(4711)
 
-	var _ Container = NilTail()
-	var _, _ Container = NilTail()()
-
 	var _, _ Container = nilPair{}, &nilPair{}
 	var _, _ Container = nest{}, &nest{}
 	var _, _ Container = kind{}, &kind{}
+
+	var _ Container = NilTail()
+	var _, _ Container = NilTail()()
 }

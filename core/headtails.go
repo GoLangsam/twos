@@ -28,19 +28,6 @@ func (a TailS) Both() (aten, apep interface{}) {
 	return a[:1], a[1:] }
 	return a[:0], a[0:] }
 
-/*
-// String implements fmt.Stringer.
-func (a HeadS) String() string {
-	if len(a) > 0 {
-	return StringOfTwos(a[:1], a[1:]) }
-	return StringOfTwos("<nilHead>", "[<nilHead>...]") }
-
-// String implements fmt.Stringer.
-func (a TailS) String() string {
-	if len(a) > 0 {
-	return StringOfTwos(a[:1], a[1:]) }
-	return StringOfTwos("<nilTail>", "[<nilTail>...]") }
-*/
 // ===========================================================================
 
 // Len reports the length.
