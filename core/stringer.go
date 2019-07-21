@@ -49,10 +49,10 @@ func (a name) String() string {
 	var b strings.Builder
 	fmt.Fprint(&b, tailBeg)
 	if a == nil {
-		fmt.Fprintf(&b, StringOfOnes("<nilTail>"))
+		fmt.Fprint(&b, StringOfOnes("<nilTail>"))
 	} else {
 		for head, tail := a(); head != nil; head, tail = tail() {
-			fmt.Fprintf(&b, StringOfPair(head()))
+			fmt.Fprint(&b, StringOfPair(head()))
 		}
 	}
 	fmt.Fprint(&b, tailEnd)
