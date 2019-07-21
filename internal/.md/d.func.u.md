@@ -1,6 +1,4 @@
     - pile_test.go for basic tests of PileOf... functionalities
-var isanyTypeFalse = func(a anyType) bool { ... }
-var isanyTypeTrue = func(a anyType) bool { ... }
 func FmapanyTypeRoC(f func(anyType) anyType, RoCs ...<-chan anyType) <-chan anyType
 func boolanyType()
 func fmapanyType()
@@ -11,3 +9,5 @@ func pileanyType()
     func JoinanyTypeS(anyTypeSs ...[]anyType) (anyTypeS []anyType)
     func LiftanyType(anyTypes ...anyType) (anyTypeS []anyType)
 type anyTypeIs func(anyType) bool
+    func isanyTypeFalse() anyTypeIs
+    func isanyTypeTrue() anyTypeIs

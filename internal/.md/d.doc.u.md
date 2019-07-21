@@ -19,8 +19,6 @@ generated into such package.
 var NilTail = core.NilTail ...
 var Cardinal = core.Cardinal
 var Ordinal = core.Ordinal
-var isanyTypeFalse = func(a anyType) bool { ... }
-var isanyTypeTrue = func(a anyType) bool { ... }
 func FmapanyTypeRoC(f func(anyType) anyType, RoCs ...<-chan anyType) <-chan anyType
 func boolanyType()
 func fmapanyType()
@@ -39,6 +37,8 @@ type anyType generic.Type
     func JoinanyTypeS(anyTypeSs ...[]anyType) (anyTypeS []anyType)
     func LiftanyType(anyTypes ...anyType) (anyTypeS []anyType)
 type anyTypeIs func(anyType) bool
+    func isanyTypeFalse() anyTypeIs
+    func isanyTypeTrue() anyTypeIs
 type anyTypeS []anyType
 type lookUpanyType struct{ ... }
 type onesOfanyType struct{ ... }

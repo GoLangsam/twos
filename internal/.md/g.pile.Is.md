@@ -2,6 +2,8 @@ type anyTypeIs func(anyType) bool
     anyTypeIs represents a boolean predicate of anyType implemented as a boolean
     function for anything of type anyType.
 
+func isanyTypeFalse() anyTypeIs
+func isanyTypeTrue() anyTypeIs
 func (a anyTypeIs) And(predicates ...func(anyType) bool) anyTypeIs
 func (a anyTypeIs) Eval(arg anyType) bool
 func (a anyTypeIs) Is() anyTypeIs
