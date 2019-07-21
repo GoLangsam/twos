@@ -9,7 +9,7 @@
 // core interface: Iterable,Kind,Type,Pair
 // void interface: interface{}
 
-//go:generate genny	-in ..\internal\pile.go		-out gen.pile.go	-pkg pile gen "anyType=interface{},Cardinality,Index,ID,Type,Iterable,Pair,Pile"
-//go:generate genny	-in ..\internal\pile_test.go	-out gen_test.go	-pkg pile gen "anyType=interface{},Cardinality,Index,ID,Type,Pair,Pile"
+//go:generate genny	-in ..\internal\pile.go		-out gen.pile.go	-pkg pile gen "anyType=interface{},Cardinality,Index,ID,Type,Container,Indexed,Iterable,Named,Pair,Pile"
+//go:generate genny	-in ..\internal\pile_test.go	-out gen_test.go	-pkg pile gen "anyType=interface{},Cardinality,Index,ID,Type,Container,Indexed,Iterable,Named,Pair,Pile"
 
 package pile
