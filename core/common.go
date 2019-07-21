@@ -21,8 +21,9 @@ var (
 	nilHead Head = func() Pair { return nilPair{} }
 	nilTail Tail = func() (Head, Tail) { return nil, func() (Head, Tail) { return nil, nil } }
 
+	theKindOfNilPair     = kind{name(TypeOf(nilPair{}).Name()),   TypeOf(nilPair{})}
 	theKindOfNest        = kind{name(TypeOf(nest{}).Name()),      TypeOf(nest{})}
-	theKindOfKind        = kind{name(TypeOf(kind{}).Name()),      TypeOf(kind{})}
+//	theKindOfKind        = kind{name(TypeOf(kind{}).Name()),      TypeOf(kind{})}
 	theKindOfName        = kind{name(TypeOf(name("")).Name()),    TypeOf(name(""))}
 	theKindOfIndex       = kind{name(TypeOf(Ordinal(1)).Name()),  TypeOf(Ordinal(1))}
 	theKindOfCardinality = kind{name(TypeOf(Cardinal(0)).Name()), TypeOf(Cardinal(0))}
@@ -34,6 +35,8 @@ func KindOfPair(a Pair) kind {
 	if a == nil { return kind{nilName, TypeOf(nilPair{})} }
 	type Named interface{ Name() string }
 	switch a := a.(type) {
+	case nilPair:
+		return theKindOfNilPair
 	case kind:
 		if a.ID == ""    { a.ID   = nilName }
 		if a.Type == nil { a.Type = TypeOf(kind{}) }
@@ -245,6 +248,14 @@ func (a nilPair) Contains(item interface{}) (contains bool) {
 // Contains implements Container
 // by telling whether the given item is of suitable type
 // and if so, whether a contains this item.
+func (a kind) Contains(item interface{}) (contains bool) {
+	if i, contains := item.(kind); contains && a.ID == i.ID && a.Type == i.Type { return contains }
+	return false
+}
+
+// Contains implements Container
+// by telling whether the given item is of suitable type
+// and if so, whether a contains this item.
 func (a name) Contains(item interface{}) (contains bool) {
 	if i, contains := item.(name); contains && a.IsEq()(i) { return contains }
 	return false
@@ -265,6 +276,9 @@ func (a Cardinality) Contains(item interface{}) (contains bool) {
 	if i, contains := item.(Cardinality); contains && a.IsEq()(i) { return contains }
 	return false
 }
+
+// func (a nest) Contains(item interface{}) (contains bool)
+// => see pair.go
 
 // Contains implements Container
 // by telling whether the given item is of suitable type
