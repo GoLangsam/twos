@@ -34,7 +34,7 @@ func ColsRows(name ID, cols, rows Iterable) *colsRows {
 }
 
 func (a colsRows) Both() (aten, apep interface{}) { return a.ID, a.tailPair }
-func (a colsRows) Size() Cardinality { return a.tailPair.Size() }
+func (a colsRows) Size() Cardinality              { return a.tailPair.Size() }
 
 // ===========================================================================
 
@@ -77,7 +77,7 @@ func Rectangle(name ID, cols, rows IndexedPile) *rectangle {
 }
 
 func (a rectangle) Both() (aten, apep interface{}) { return a.ID, a.pilePair }
-func (a rectangle) Size() Cardinality { return a.pilePair.Size() }
-func (a rectangle) Tail() Tail        { return a.pilePair.Tail() }
+func (a rectangle) Size() Cardinality              { return a.pilePair.Size() }
+func (a rectangle) Tail() Tail                     { return a.pilePair.Tail() }
 
 // ===========================================================================
