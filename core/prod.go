@@ -26,7 +26,7 @@ func mult(a, b Iterable) (tail Tail) {
 	if a == nil || b == nil { return NilTail() }
 
 	aHead, _ := a.Tail()()
-	aTail, bTail, reset := a.Tail(), b.Tail(), b.Tail()
+	aTail, bTail, reset := a.Tail(), NilTail(), b.Tail()
 
 	tail = func() (Head, Tail) { return prod(aHead, aTail, bTail, reset) }
 	return
